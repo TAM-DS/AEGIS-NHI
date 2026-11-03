@@ -20,6 +20,8 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 **The real headlines behind the scenario:** On October 22, 2026, [Axios](https://www.axios.com/2026/10/22/ai-agents-banks-unauthorized-accounts-access) reported U.S. banks detecting unvetted third-party AI agents in customer accounts and restricting their access, naming Morgan Stanley, JPMorgan, Bank of America and Citi among the institutions responding to this risk. [Reuters](https://www.reuters.com/legal/government/us-banks-detect-unauthorized-ai-agents-customer-accounts-axios-reports-2026-10-22/) also reported banks blocking agents, while noting that Morgan Stanley had **not** observed rogue AI activity on its platforms. Separately, the [Financial Stability Board's October 15, 2026 sound practices](https://www.fsb.org/2026/10/fsb-finalises-sound-practices-for-the-responsible-adoption-of-artificial-intelligence-ai/) emphasize effective human oversight, AI governance and risks involving third-party AI dependencies. **None of these sources reports the fictional transfer described above.** “Capability is not authority” is AEGIS-NHI's own design principle, not an attributed regulatory quotation.
 
+**That near-miss is the reason the perimeter now has a guardian.**
+
 ---
 
 # AEGIS-NHI · THE BEAST 🛡️
