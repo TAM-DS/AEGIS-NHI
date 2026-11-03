@@ -21,6 +21,21 @@ def test_streamlit_executive_app_initial_render():
     assert "Mitigated modeled annual loss*" in labels
     assert "Investment case" in labels
     assert "Recommendation review" in labels
+    assert "Synthetic requests" in labels
+    assert "Blocked requests" in labels
+    assert "Unauthorized executions" in labels
+    assert "Modeled annual exposure" in labels
     assert "Recorded synthetic tool calls" in labels
     assert "Normal-workflow amplification" in labels
     assert "Rule findings" in labels
+
+    # Streamlit Markdown treats paired dollar signs as LaTeX delimiters unless escaped.
+    # Verify that financial currency amounts remain visible as ordinary prose.
+    financial_prose = [
+        entry.value
+        for entry in app.markdown
+        if "At the current assumption of" in str(entry.value)
+    ]
+    assert len(financial_prose) == 1
+    assert r"\$" in financial_prose[0]
+    assert "\n\nYear-one" in financial_prose[0]

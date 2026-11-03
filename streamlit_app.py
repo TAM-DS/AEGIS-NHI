@@ -284,11 +284,11 @@ h3 {font-size:1.32rem!important;}
 
 with st.sidebar:
     brand_art = ROOT / "docs/images/aegis-beast-guardian.png"
-    brand_left, brand_right = st.columns([1.05, 1.4], gap="small", vertical_alignment="center")
+    brand_left, brand_right = st.columns([0.85, 1.85], gap="small", vertical_alignment="center")
     with brand_left:
-        st.image(str(brand_art), width=104)
+        st.image(str(brand_art), width=88)
     with brand_right:
-        st.markdown("### 🛡️ AEGIS-NHI")
+        st.markdown("**AEGIS-NHI**")
         st.caption("THE BEAST · ENGINEERING BUILD v0.4")
     st.caption("Guard the gates. Keep human authority.")
     st.divider()
@@ -390,12 +390,12 @@ with overview:
         "Synthetic case BANK-NHI-001 · event evidence versus counterfactual future loss.",
     )
     a, b, c, d = st.columns(4)
-    a.metric("Recorded agent requests", len(rows))
-    b.metric("Blocked, unauthorized requests", sum(
+    a.metric("Synthetic requests", len(rows))
+    b.metric("Blocked requests", sum(
         not r["authorized"] and r["observed_outcome"] == "blocked" for r in rows
     ))
-    c.metric("Recorded unauthorized executions", len(violations))
-    d.metric("Modeled baseline annual exposure", dollars(baseline["expected_annual_loss_usd"]))
+    c.metric("Unauthorized executions", len(violations))
+    d.metric("Modeled annual exposure", dollars(baseline["expected_annual_loss_usd"]))
     st.caption(
         "The exposure metric is a hypothetical annual scenario if controls fail; "
         "it is NOT a loss caused by blocked tool calls."
@@ -683,7 +683,11 @@ with cyber:
     )
     with st.container(border=True):
         st.markdown("#### Executive interpretation")
-        st.markdown(interpretation["economic_interpretation"])
+        st.markdown(
+            interpretation["economic_interpretation"]
+            .replace("$", r"\$")
+            .replace(" Year-one", "\n\nYear-one")
+        )
         posture, review_status, reduction = st.columns([1.1, 1.2, 1.0])
         posture.metric("Investment case", interpretation["investment_signal"])
         review_status.metric("Recommendation review", interpretation["decision_status"])
