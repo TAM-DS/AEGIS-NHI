@@ -51,7 +51,8 @@
       "synthetic_tool_cost_usd": 0.003,
       "evidence_ids": [
         "EV-001"
-      ]
+      ],
+      "declared_destination_region": "US"
     },
     {
       "event_id": "EVT-002",
@@ -63,7 +64,8 @@
       "synthetic_tool_cost_usd": 0.004,
       "evidence_ids": [
         "EV-002"
-      ]
+      ],
+      "declared_destination_region": "US"
     },
     {
       "event_id": "EVT-003",
@@ -75,7 +77,8 @@
       "synthetic_tool_cost_usd": 0.006,
       "evidence_ids": [
         "EV-003"
-      ]
+      ],
+      "declared_destination_region": "EU"
     },
     {
       "event_id": "EVT-004",
@@ -87,7 +90,8 @@
       "synthetic_tool_cost_usd": 0.003,
       "evidence_ids": [
         "EV-004"
-      ]
+      ],
+      "declared_destination_region": "US"
     }
   ],
   "annual_loss_model": {
@@ -99,5 +103,32 @@
     "seed": 1701,
     "basis": "synthetic_counterfactual_if_access_controls_fail",
     "notes": "Illustrative loss frequency and severity; not calibrated to actual financial-institution incident history."
+  },
+  "routing_policy": {
+    "policy_id": "ROUTE-001",
+    "data_classification": "restricted_financial_synthetic",
+    "approved_processing_regions": [
+      "US"
+    ],
+    "description": "Offline sovereign-routing policy replay; metadata is synthetic and no real routing occurs."
+  },
+  "ledger": {
+    "ledger_id": "LEDGER-SYN-001",
+    "currency": "USD",
+    "basis": "synthetic_opening_closing_account_snapshots",
+    "accounts": [
+      {
+        "account_id": "settlement_cash",
+        "opening_balance_usd": "18000000.00",
+        "closing_balance_usd": "18000000.00"
+      },
+      {
+        "account_id": "clearing_reserve",
+        "opening_balance_usd": "2100000.00",
+        "closing_balance_usd": "2100000.00"
+      }
+    ],
+    "postings": [],
+    "notes": "No simulated transfer executed and no journal posting should exist. Book balances are fictional, not measured or protected capital."
   }
 }
