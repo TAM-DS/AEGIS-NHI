@@ -4,7 +4,7 @@
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.1 development foundation.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
+**Status: v0.2 executive-evidence milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a redesigned five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
 
 All events, banks, non-human identities, costs and loss assumptions here are **synthetic**. This is not a deployed security system, production risk assessment, actual loss, or realized saving.
 
@@ -52,9 +52,29 @@ No API keys, bank accounts, cloud accounts or paid services. Reviewer decisions 
 
 **Hypothetical modeled annual exposure:** 1.7 annual events, $80,000 minimum / $200,000 mode / $900,000 maximum synthetic severity; the resulting analytical expected annual loss at baseline is **$668,666.67**. This is NOT an observed or prevented loss; it is a counterfactual scenario if controls fail in the future, not the financial consequence of the blocked event.
 
-## Executive views
+## Executive command center · v0.2
 
-Executive Overview; NHI & Agent Controls; FinOps & Agents; Cyber Risk Quantification; Decision & Evidence. All figures are labeled by basis. A human reviewer can approve or reject the recommendation with rationale; that action does not authorize financial transfers, grant changes or cloud remediation. An evidence JSON package can be exported.
+**Executive Command:** Large-format 30-second CRO/CFO briefing, source-linked timeline, recorded control decisions, and a distinct hypothetical annual exposure figure.
+
+**NHI & Authorization:** Sankey-style identity → resource/action → decision map, source evidence tables and valid/expired scope checks. The diagram depicts *fictional requests*, not bank network traffic.
+
+**FinOps & Agents:** Four bounded, allowlisted, read-only tool invocations and per-event synthetic charges. Runaway token/GPU detection is a roadmap item, **not implemented**.
+
+**Cyber Risk Economics:** The exact seeded risk model now exports a 16-bin annual-loss histogram with separate zero-loss years and extreme tail. Control-economics comparison has editable effectiveness, one-time implementation and annual operating assumptions, three-year NPV at 10%, and optional simple payback. A frequency × effectiveness heatmap shows pure what-if sensitivity; it is not empirical incident data.
+
+**Decision & Evidence:** Local human reviews are tied to the exact risk **and proposed-control cost** snapshot. Changing control assumptions therefore creates a distinct review record. Exports contain the input hashes, financial model, control economics, and available local review history.
+
+Every financial comparison is **hypothetical, not booked savings, not actual loss avoidance, and not a real-bank risk estimate**. The original incident fixture still shows one authorized execution and three blocked unauthorized requests.
+
+### Screenshot and browser QA
+
+1. Run `uv sync --extra dev --extra dashboard`, then `uv run pytest -q`.
+2. Run `uv run streamlit run streamlit_app.py` and inspect all five tabs.
+3. Change effectiveness and control cost: residual modeled exposure and NPV must change, while the event timeline and allowed/denied decisions remain identical.
+4. Open Decision & Evidence, record an approval with named reviewer and rationale, then change the proposed control cost. Verify the *new* scenario remains pending human review; return to the previous inputs to see the original review.
+5. Export JSON and confirm `human_review_history`, `hypothetical_control_economics`, and the original authorization evidence are present.
+
+Screenshots should be captured from the functioning app **after local visual QA**, not fabricated marketing mockups.
 
 ## Controls and limitations
 
