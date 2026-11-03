@@ -283,8 +283,14 @@ h3 {font-size:1.32rem!important;}
 )
 
 with st.sidebar:
-    st.markdown("## 🛡️ AEGIS-NHI")
-    st.caption("THE BEAST · ENGINEERING BUILD v0.4")
+    brand_art = ROOT / "docs/images/aegis-beast-guardian.png"
+    brand_left, brand_right = st.columns([1.05, 1.4], gap="small", vertical_alignment="center")
+    with brand_left:
+        st.image(str(brand_art), width=104)
+    with brand_right:
+        st.markdown("### 🛡️ AEGIS-NHI")
+        st.caption("THE BEAST · ENGINEERING BUILD v0.4")
+    st.caption("Guard the gates. Keep human authority.")
     st.divider()
     st.markdown("### Scenario controls")
     freq = st.slider(

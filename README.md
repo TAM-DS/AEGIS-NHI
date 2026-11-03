@@ -1,5 +1,10 @@
 # AEGIS-NHI · THE BEAST 🛡️
 
+<img src="docs/images/aegis-beast-guardian.png" alt="The Beast: armored black cat with neon blue eyes and a mace-shaped tail" width="110" align="right" />
+
+**Meet The Beast:** a little black-cat guardian of the autonomous perimeter, with crusader armor, neon-blue eyes, white claws and a mace-shaped tail. He belongs in the app sidebar because a memorable product identity matters alongside tested engineering.
+
+
 **Autonomous Chief Risk Officer & Cyber Risk Quantification**
 
 > Capability is not authority. Evidence before action. Humans retain control.
@@ -141,5 +146,7 @@ The incident demonstrates that **individual tool calls can remain within a grant
 ## Next work
 
 Pass CI, visually inspect all six views, publish actual application screenshots, and build the remaining cyber data-exposure and shadow-AI scenarios. Optional bounded model narration comes only after deterministic evidence verification.
+
+**Brand asset note:** The repository includes a compact transparent PNG derivative for application use. The original high-resolution artwork remains separate. The mascot was developed with AI assistance; no copyright registration or exclusive rights are claimed here.
 
 **Build the technology. Understand the economics. Earn the trust. Grow the business.**
