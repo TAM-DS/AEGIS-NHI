@@ -4,13 +4,28 @@
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.4 autonomous-agent forensics milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a redesigned five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
+**Status: v0.4 autonomous-agent forensics milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a six-tab executive console are implemented on the feature branch. Two of four planned synthetic investigations are implemented (unauthorized agent actions and runaway agent forensics); the cyber/data-exposure and shadow-AI cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
 
 All events, banks, non-human identities, costs and loss assumptions here are **synthetic**. This is not a deployed security system, production risk assessment, actual loss, or realized saving.
 
 ## Why
 
 Bank risk leadership must distinguish what an agent can technically do from what it is authorized to do, evaluate credible downside assumptions and make decisions with traceable evidence.
+
+## Product-building mindset: From market signal to release
+
+AEGIS-NHI was approached as an end-to-end enterprise product, not just a technical demonstration:
+
+1. **Market intelligence:** Identify genuine banking pain points through industry discussions and research.
+2. **Product strategy:** Translate those problems into capabilities executives would value.
+3. **Architecture:** Design identity governance, forensic detection, risk quantification, and human oversight.
+4. **Engineering:** Build functional software with deterministic logic, testing, and evidence.
+5. **Financial intelligence:** Connect technical decisions to modeled business consequences and investment trade-offs.
+6. **Product experience:** Make complex information understandable to a CRO, CFO, or CEO.
+7. **Brand identity:** Create a memorable, cohesive product that people recognize.
+8. **Delivery discipline:** Validate, test, document, and refine before release.
+
+**Product principle:** Start with the business problem. Make authority explicit, quantify the assumptions, preserve the evidence, and earn the trust.
 
 ## Two engines, three governed roles
 
