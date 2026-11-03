@@ -1,0 +1,103 @@
+{
+  "case_id": "BANK-NHI-001",
+  "title": "Third-party agent attempts unauthorized banking tool actions",
+  "scenario_type": "unauthorized_third_party_agent",
+  "synthetic": true,
+  "institution": "Fictional Mid-Market Bank (Synthetic)",
+  "scenario_context": "Synthetic identity has temporary read-summary access, not transfer or bulk export rights. Blocked attempts are not actual fraud or bank losses.",
+  "evidence": [
+    {
+      "evidence_id": "EV-001",
+      "kind": "synthetic_runtime_audit",
+      "description": "A limited-scope read request executed within the granted runtime window."
+    },
+    {
+      "evidence_id": "EV-002",
+      "kind": "synthetic_policy_denial",
+      "description": "Simulated initiate_transfer attempt was blocked; no matching resource grant exists."
+    },
+    {
+      "evidence_id": "EV-003",
+      "kind": "synthetic_policy_denial",
+      "description": "Simulated bulk account-data export was blocked; action not granted."
+    },
+    {
+      "evidence_id": "EV-004",
+      "kind": "synthetic_policy_denial",
+      "description": "Simulated read request was blocked after runtime grant expiration."
+    }
+  ],
+  "grants": [
+    {
+      "grant_id": "GR-001",
+      "identity_id": "vendor-agent-17",
+      "resource_id": "accounts.summary",
+      "allowed_actions": [
+        "read_summary"
+      ],
+      "issued_at": "2026-10-22T14:00:00Z",
+      "expires_at": "2026-10-22T14:10:00Z",
+      "approved_by": "synthetic-security-owner"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EVT-001",
+      "occurred_at": "2026-10-22T14:02:00Z",
+      "identity_id": "vendor-agent-17",
+      "resource_id": "accounts.summary",
+      "requested_action": "read_summary",
+      "observed_outcome": "executed",
+      "synthetic_tool_cost_usd": 0.003,
+      "evidence_ids": [
+        "EV-001"
+      ]
+    },
+    {
+      "event_id": "EVT-002",
+      "occurred_at": "2026-10-22T14:04:00Z",
+      "identity_id": "vendor-agent-17",
+      "resource_id": "payments.transfer",
+      "requested_action": "initiate_transfer",
+      "observed_outcome": "blocked",
+      "synthetic_tool_cost_usd": 0.004,
+      "evidence_ids": [
+        "EV-002"
+      ]
+    },
+    {
+      "event_id": "EVT-003",
+      "occurred_at": "2026-10-22T14:05:00Z",
+      "identity_id": "vendor-agent-17",
+      "resource_id": "accounts.summary",
+      "requested_action": "bulk_export",
+      "observed_outcome": "blocked",
+      "synthetic_tool_cost_usd": 0.006,
+      "evidence_ids": [
+        "EV-003"
+      ]
+    },
+    {
+      "event_id": "EVT-004",
+      "occurred_at": "2026-10-22T14:12:00Z",
+      "identity_id": "vendor-agent-17",
+      "resource_id": "accounts.summary",
+      "requested_action": "read_summary",
+      "observed_outcome": "blocked",
+      "synthetic_tool_cost_usd": 0.003,
+      "evidence_ids": [
+        "EV-004"
+      ]
+    }
+  ],
+  "annual_loss_model": {
+    "annual_event_frequency": 1.7,
+    "loss_min_usd": 80000,
+    "loss_mode_usd": 200000,
+    "loss_max_usd": 900000,
+    "simulations": 5000,
+    "seed": 1701,
+    "basis": "synthetic_counterfactual_if_access_controls_fail",
+    "notes": "Illustrative loss frequency and severity; not calibrated to actual financial-institution incident history."
+  }
+}
