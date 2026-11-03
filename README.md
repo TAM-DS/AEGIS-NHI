@@ -35,9 +35,66 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.4 autonomous-agent forensics milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a six-tab executive console are implemented on the feature branch. Two of four planned synthetic investigations are implemented (unauthorized agent actions and runaway agent forensics); the cyber/data-exposure and shadow-AI cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
+**Status: v0.4 autonomous-agent forensics milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a six-tab executive console are implemented on `main`. Two of four planned synthetic investigations are implemented (unauthorized agent actions and runaway agent forensics); the cyber/data-exposure and shadow-AI cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
 
 All events, banks, non-human identities, costs and loss assumptions here are **synthetic**. This is not a deployed security system, production risk assessment, actual loss, or realized saving.
+
+## The Beast in action · Six executive views
+
+**A product you can inspect—not just a promise you have to believe.** These are real screenshots from the running **AEGIS-NHI v0.4 Streamlit application**, using entirely fictional banking fixtures, deterministic control evidence and hypothetical financial assumptions.
+
+### 01 / Executive Authority — Deconstruct the authority. Quantify the exposure.
+
+[![Executive Authority dashboard with AEGIS-NHI guardian branding, synthetic incident metrics and board-level risk briefing](docs/images/Executive_Authority-01.png)](docs/images/Executive_Authority-01.png)
+
+*The 30-second executive assessment: four synthetic requests, three blocked actions and zero recorded unauthorized executions—alongside a clearly separate, hypothetical annual risk scenario.*
+
+### The perimeter and the ledger
+
+| **02 / Autonomous Perimeter** | **03 / Ledger & FinOps** |
+|:---:|:---:|
+| [![Autonomous Perimeter identity-to-action Sankey diagram with authorized and blocked synthetic actions, policy replay, and jurisdiction checks](docs/images/Evidence_Chain-04.png)](docs/images/Evidence_Chain-04.png) | [![Ledger and FinOps dashboard showing synthetic reconciliation, bounded read-only tool traces and incident cost evidence](docs/images/Financial_Frontiers-05.png)](docs/images/Financial_Frontiers-05.png) |
+| **Follow the authority.** Identity → scoped action → observed outcome, with evidence for every allow or deny. | **Follow the money.** Reconcile fictional ledger evidence and distinguish synthetic tool charges from invoices or modeled losses. |
+
+### 04 / Agent Forensics — Audit the behavior. Expose the cost. Govern the consequence.
+
+[![Agent Forensics dashboard with six-minute simulated runaway tool use, 600 calls, fifty-times normal amplification, trend chart, repeated calls and detection findings](docs/images/Audit_Behaviors-06.png)](docs/images/Audit_Behaviors-06.png)
+
+*The technical centerpiece: a synthetic third-party agent makes 600 calls against a 12-call normal workflow (50×). Deterministic detectors flag sustained bursts, call-budget breaches, and repeated tool signatures. An authorized individual tool call is **not** an unlimited operational mandate.*
+
+### Quantify the downside. Retain human judgment.
+
+| **05 / Capital at Risk** | **06 / Audit & Decisions** |
+|:---:|:---:|
+| [![Capital at Risk dashboard with seeded 5000-year annual loss distribution, proposed control comparison and hypothetical net-value economics](docs/images/Capital_Risk-08.png)](docs/images/Capital_Risk-08.png) | [![Audit and Decisions view showing evidence integrity, a pending human recommendation review, reviewer rationale fields and traceable synthetic evidence cards](docs/images/Audit_Governance-10.png)](docs/images/Audit_Governance-10.png) |
+| **Price the control.** Compare modeled annual exposure, simulated loss distributions and assumption-based control economics. | **Govern the consequence.** Bind decisions to evidence and human-review records; do not confuse recommendation approval with operational permission. |
+
+<details>
+<summary><strong>Explore three closer investigations: event timeline, forensic evidence and executive economics</strong></summary>
+
+#### A. Exactly which actions were blocked?
+
+[![Time-ordered synthetic authorization event timeline with one permitted read and blocked transfer, export and expired-grant read](docs/images/Agentic_Mutation_Evidence-02.png)](docs/images/Agentic_Mutation_Evidence-02.png)
+
+*Time-ordered replay of one authorized read and three blocked requests. This is offline synthetic evidence, not live bank enforcement.*
+
+#### B. When did the detector notice the runaway calls?
+
+[![Agent Forensics detailed findings showing first-alert minute, rule-to-evidence links, token and GPU assumptions, bounded continuation projections and human review](docs/images/Forensic_Findings-07.png)](docs/images/Forensic_Findings-07.png)
+
+*Rules, evidence IDs, unit-rate assumptions, additional-time projections and a pending human investigation decision. Token and GPU cost estimates may overlap and are **not additive**.*
+
+#### C. What decision would an executive need to make?
+
+[![Executive briefing with what-happened summary, hypothetical residual annual exposure, governance decision and synthetic ledger boundary status](docs/images/What-Could-It-Cost-03.png)](docs/images/What-Could-It-Cost-03.png)
+
+*A business-facing view of what happened, what it might mean economically under assumed future conditions, and what still requires a human.*
+
+</details>
+
+**Evidence boundary:** These screenshots use synthetic scenarios and selectable assumptions. They do not show a real bank incident, deployed agent monitoring, prevented losses, billable cloud charges or approved production remediation. The [source image directory](docs/images) contains all ten captured screenshots; the earlier **Investment Committee** close-up is intentionally not featured because it predates a financial-text rendering correction. Refresh that capture from the current app before publishing it as an official product view.
+
+---
 
 ## Why
 
@@ -104,7 +161,7 @@ No API keys, bank accounts, cloud accounts or paid services. Reviewer decisions 
 
 **NHI & Authorization:** Sankey-style identity → resource/action → decision map, source evidence tables and valid/expired scope checks. The diagram depicts *fictional requests*, not bank network traffic.
 
-**FinOps & Agents:** Four bounded, allowlisted, read-only tool invocations and per-event synthetic charges. Runaway token/GPU detection is a roadmap item, **not implemented**.
+**FinOps & Agents (v0.2 baseline):** Four bounded, allowlisted, read-only tool invocations and per-event synthetic charges in BANK-NHI-001. The separately implemented v0.4 Agent Forensics case adds anomaly rules over fictional call and token/GPU telemetry; it is not a production cost monitor.
 
 **Cyber Risk Economics:** The exact seeded risk model now exports a 16-bin annual-loss histogram with separate zero-loss years and extreme tail. Control-economics comparison has editable effectiveness, one-time implementation and annual operating assumptions, three-year NPV at 10%, and optional simple payback. A frequency × effectiveness heatmap shows pure what-if sensitivity; it is not empirical incident data.
 
@@ -115,7 +172,7 @@ Every financial comparison is **hypothetical, not booked savings, not actual los
 ### Screenshot and browser QA
 
 1. Run `uv sync --extra dev --extra dashboard`, then `uv run pytest -q`.
-2. Run `uv run streamlit run streamlit_app.py` and inspect all five tabs.
+2. Run `uv run streamlit run streamlit_app.py` and inspect all six tabs.
 3. Change effectiveness and control cost: residual modeled exposure and NPV must change, while the event timeline and allowed/denied decisions remain identical.
 4. Open Decision & Evidence, record an approval with named reviewer and rationale, then change the proposed control cost. Verify the *new* scenario remains pending human review; return to the previous inputs to see the original review.
 5. Export JSON and confirm `human_review_history`, `hypothetical_control_economics`, and the original authorization evidence are present.
@@ -152,7 +209,7 @@ The **Capital at Risk** screen now translates the synthetic risk distribution in
 
 The investment panel updates its modeled annual risk reduction, first-year net modeled value, three-year discounted net modeled value and **conditional** investment signal when proposed effectiveness or cost inputs change. Human review applies only to the exact evidence and cost snapshot. Neither a positive model signal nor recorded recommendation approval authorizes a real-world security or financial operation.
 
-The five views are ranked for future investment: Capital at Risk (model/economics), Executive Authority (30-second briefing), Autonomous Perimeter (trust boundary audit), Audit & Decisions (human accountability), and Ledger & FinOps (working fixture reconciliation and tool costs, with additional anomaly detectors still to build).
+The six complementary views span Executive Authority, Autonomous Perimeter, Ledger & FinOps, Agent Forensics, Capital at Risk, and Audit & Decisions. They separate retrospective fixture evidence, modeled assumptions, and human decision authority.
 
 ## Autonomous Agent Forensics · v0.4
 
@@ -171,7 +228,7 @@ The incident demonstrates that **individual tool calls can remain within a grant
 
 ## Next work
 
-Pass CI, visually inspect all six views, publish actual application screenshots, and build the remaining cyber data-exposure and shadow-AI scenarios. Optional bounded model narration comes only after deterministic evidence verification.
+The v0.4 screenshots and six-view evidence gallery are published above. Next: build the remaining distinct cyber data-exposure and shadow-AI synthetic scenarios, then optionally add bounded model narration only after deterministic evidence verification.
 
 **Brand asset note:** The repository includes a compact transparent PNG derivative for application use. The original high-resolution artwork remains separate. The mascot was developed with AI assistance; no copyright registration or exclusive rights are claimed here.
 
