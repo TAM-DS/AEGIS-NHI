@@ -57,7 +57,7 @@ def validate_case(case: dict[str, Any]) -> None:
     required = ("case_id", "title", "scenario_type", "evidence", "events", "grants", "annual_loss_model")
     if not isinstance(case, dict) or any(field not in case for field in required):
         raise ValueError("Scenario lacks required evidence and risk fields")
-    if not case.get("synthetic") is True:
+    if case.get("synthetic") is not True:
         raise ValueError("Only explicitly synthetic scenarios may be processed")
     if not case["events"] or not case["evidence"]:
         raise ValueError("Scenario needs synthetic events and evidence")
