@@ -80,6 +80,36 @@ def quantify_annual_loss(
         event_count = _poisson(rng, effective_rate)
         samples.append(sum(rng.triangular(low, high, mode) for _ in range(event_count)))
     samples.sort()
+    # Bin the *same* seeded samples used for quantiles; show zero-loss years
+    # separately and isolate the >P99 tail so outliers do not flatten the chart.
+    upper = max(_percentile(samples, 0.99), 1.0)
+    bin_count = 16
+    width = upper / bin_count
+    counts = [0] * bin_count
+    zero_years = 0
+    tail_years = 0
+    for value in samples:
+        if value == 0:
+            zero_years += 1
+        elif value > upper:
+            tail_years += 1
+        else:
+            index = min(int(value / width), bin_count - 1)
+            counts[index] += 1
+    histogram = {
+        "unit": "simulated_years",
+        "zero_loss_years": zero_years,
+        "upper_cutoff_usd": round(upper, 2),
+        "tail_years_above_cutoff": tail_years,
+        "bins": [
+            {
+                "from_usd": round(index * width, 2),
+                "to_usd": round((index + 1) * width, 2),
+                "count": count,
+            }
+            for index, count in enumerate(counts)
+        ],
+    }
     expected = effective_rate * (low + mode + high) / 3.0
     return {
         "basis": "hypothetical_conditional_annual_loss_if_controls_fail",
@@ -100,6 +130,7 @@ def quantify_annual_loss(
         "p90_annual_loss_usd": round(_percentile(samples, 0.9), 2),
         "simulations": runs,
         "seed": config["seed"],
+        "annual_loss_histogram": histogram,
         "limitations": (
             "Inputs are synthetic subjective assumptions. P10/P50/P90 are quantiles of "
             "simulated annual outcomes, not statistical confidence intervals. "
