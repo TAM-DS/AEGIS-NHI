@@ -16,7 +16,7 @@ def test_complete_deterministic_case(case):
     assert r["executive_brief"]["denied_count"] == 3
     assert r["executive_brief"]["policy_control_failures"] == 0
     assert r["runtime_metrics"]["synthetic_tool_cost_usd"] == 0.016
-    assert len(r["tool_trace"]) == 4
+    assert len(r["tool_trace"]) == 6
     assert len(r["agent_roles"]) == 3
     assert len(r["report_id"]) == 24
     assert len(r["executive_brief"]["evidence_ids"]) == 4

@@ -12,12 +12,15 @@ from pathlib import Path
 from typing import Any, Callable, TypeVar
 
 from .authorization import evaluate_events, parse_timestamp
+from .perimeter import reconcile_synthetic_ledger, replay_sovereign_routing
 from .risk import quantify_annual_loss
 
 T = TypeVar("T")
 _ALLOWED_TOOLS = {
     "policy_evaluation",
     "runtime_summary",
+    "ledger_reconciliation",
+    "sovereign_routing",
     "loss_quantification",
     "executive_brief",
 }
@@ -151,6 +154,14 @@ def run_case(
     runtime = ledger.invoke(
         "FinOps Auditor", "runtime_summary", lambda: summarize_runtime(case["events"])
     )
+    ledger_result = ledger.invoke(
+        "FinOps Auditor", "ledger_reconciliation",
+        lambda: reconcile_synthetic_ledger(case, decisions),
+    )
+    routing_result = ledger.invoke(
+        "FinOps Auditor", "sovereign_routing",
+        lambda: replay_sovereign_routing(case),
+    )
     loss = ledger.invoke(
         "Risk Actuary",
         "loss_quantification",
@@ -173,6 +184,8 @@ def run_case(
         "status": "PENDING_HUMAN_REVIEW",
         "authorization_decisions": decisions,
         "runtime_metrics": runtime,
+        "ledger_reconciliation": ledger_result,
+        "sovereign_routing": routing_result,
         "financial_risk": loss,
         "executive_brief": brief,
         "evidence": case["evidence"],
