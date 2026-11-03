@@ -172,7 +172,7 @@ def replay_sovereign_routing(case: dict[str, Any]) -> dict[str, Any]:
         "approved_regions": list(allowed),
         "events": findings,
         "outside_declared_boundary_count": sum(
-            not event["declared_destination_region"] in allowed for event in findings
+            event["declared_destination_region"] not in allowed for event in findings
         ),
         "executed_outside_boundary_count": sum(
             item["recorded_routing_control_failure"] for item in findings

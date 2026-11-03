@@ -282,7 +282,7 @@ h3 {font-size:1.32rem!important;}
 
 with st.sidebar:
     st.markdown("## 🛡️ AEGIS-NHI")
-    st.caption("THE BEAST · ENGINEERING BUILD v0.2")
+    st.caption("THE BEAST · ENGINEERING BUILD v0.3")
     st.divider()
     st.markdown("### Scenario controls")
     freq = st.slider(
@@ -320,6 +320,8 @@ baseline = quantify_annual_loss(
 risk = report["financial_risk"]
 rows = report["authorization_decisions"]
 runtime = report["runtime_metrics"]
+ledger_evidence = report["ledger_reconciliation"]
+sovereign_evidence = report["sovereign_routing"]
 brief = report["executive_brief"]
 comparison = compare_control_investment(
     baseline_expected_annual_loss_usd=baseline["expected_annual_loss_usd"],
@@ -348,12 +350,12 @@ violations = [r for r in rows if r["control_failure"]]
 st.markdown(
     """
 <div class="aegis-hero">
- <div class="hero-tag">SYNTHETIC PORTFOLIO DEMONSTRATION · READ ONLY</div>
- <div class="hero-kicker">AEGIS-NHI / Chief Risk Officer Intelligence</div>
- <div class="hero-title">Control the authority.<br>Quantify the exposure.</div>
- <div class="hero-sub">From non-human identity decisions to board-level economics:
- every finding linked to evidence, every financial number labeled by basis,
- and every consequential recommendation retained for human review.</div>
+ <div class="hero-tag">SYNTHETIC BANKING REFERENCE · READ-ONLY INVESTIGATION</div>
+ <div class="hero-kicker">AEGIS-NHI / Institutional Authority Intelligence</div>
+ <div class="hero-title">Deconstruct the authority.<br>Quantify the exposure.</div>
+ <div class="hero-sub">Audit the autonomous perimeter. Trace non-human identity routing,
+ investigate agentic mutation attempts, reconcile synthetic ledger evidence,
+ and quantify conditional capital-at-risk scenarios. Human judgment governs the frontier.</div>
 </div>
 """,
     unsafe_allow_html=True,
@@ -361,11 +363,11 @@ st.markdown(
 
 overview, identity, economics, cyber, evidence = st.tabs(
     [
-        "🏛️ Executive Command",
-        "🔐 NHI & Authorization",
-        "⚡ Agent / FinOps",
-        "📊 Cyber Risk Economics",
-        "📁 Decision & Evidence",
+        "🏛️ Executive Authority",
+        "🔐 Autonomous Perimeter",
+        "⚡ Ledger & FinOps",
+        "📊 Capital at Risk",
+        "📁 Audit & Decisions",
     ]
 )
 
@@ -434,8 +436,22 @@ with overview:
                 "Entirely hypothetical: assumes actual control effectiveness and "
                 "the entered implementation/operating costs."
             )
+    with st.container(border=True):
+        st.markdown("#### Financial frontiers · ledger and sovereign evidence")
+        first, second, third = st.columns(3)
+        first.metric("Synthetic journal postings", ledger_evidence["posting_count"])
+        second.metric("Ledger snapshot audit", ledger_evidence["status"])
+        third.metric(
+            "Out-of-boundary region requests",
+            sovereign_evidence["outside_declared_boundary_count"],
+        )
+        st.caption(
+            "The blocked export declared an EU destination against a synthetic US-only "
+            "policy. No actual data routing occurred. Ledger balances were fictional "
+            "and reconciliation does not prove any real capital was protected."
+        )
     section_title(
-        "02 / Incident evidence", "Authorization event timeline",
+        "02 / Agentic mutation evidence", "Authorization event timeline",
         "Time-ordered synthetic tool requests; orange indicates blocked requests.",
     )
     st.plotly_chart(timeline_chart(CASE, rows), width="stretch")
@@ -487,9 +503,56 @@ with identity:
         )
     st.caption("This is retrospective synthetic policy evaluation, NOT live IAM enforcement.")
 
+    section_title(
+        "03 / Sovereign-routing audit",
+        "Declared jurisdiction boundary replay",
+        "Offline synthetic metadata evaluation against a US-only allowlist.",
+    )
+    st.dataframe(
+        [
+            {
+                "Event": item["event_id"],
+                "Action": item["requested_action"],
+                "Declared destination": item["declared_destination_region"],
+                "Region policy replay": item["policy_replay"],
+                "Observed outcome": item["observed_outcome"].upper(),
+                "Recorded control failure": item["recorded_routing_control_failure"],
+            }
+            for item in sovereign_evidence["events"]
+        ],
+        width="stretch",
+        hide_index=True,
+    )
+    st.caption(
+        "Declared region is fixture metadata, not verified data location. "
+        "No network routing, geographic attestation, or live sovereign enforcement exists."
+    )
+
 with economics:
     section_title(
-        "01 / Operational footprint", "Agent runtime and cost evidence",
+        "01 / Financial frontiers",
+        "Reconcile synthetic ledger effects against recorded agent actions",
+        "No financial mutation was posted in this fixture. This is an audit replay, not a bank ledger.",
+    )
+    la, lb, lc, ld = st.columns(4)
+    la.metric("Synthetic journal postings", ledger_evidence["posting_count"])
+    lb.metric("Posted journal value", dollars(float(ledger_evidence["posted_journal_value_usd"])))
+    lc.metric("Ledger snapshot status", ledger_evidence["status"])
+    ld.metric("Reconciliation exceptions", ledger_evidence["exception_count"])
+    with st.expander("Opening / closing balances and consequential action evidence"):
+        st.json({
+            "ledger_id": ledger_evidence["ledger_id"],
+            "opening_total_usd": ledger_evidence["opening_total_usd"],
+            "closing_total_usd": ledger_evidence["closing_total_usd"],
+            "consequential_action_requests": ledger_evidence["consequential_action_requests"],
+            "exceptions": ledger_evidence["exceptions"],
+        }, expanded=False)
+    st.caption(
+        "Fictional balance snapshots; this control detects discrepancies in provided "
+        "fixture records only. No live financial mutations or bank APIs are present."
+    )
+    section_title(
+        "02 / Agentic operational footprint", "Agent runtime and cost evidence",
         "Charges come directly from fixture telemetry, not from a cloud invoice.",
     )
     a, b, c, d = st.columns(4)
@@ -502,7 +565,7 @@ with economics:
         "are never added to modeled cyber-loss exposure."
     )
     section_title(
-        "02 / Governed orchestration", "Three agents, four bounded read-only tools",
+        "03 / Governed orchestration", "Three agents, six bounded read-only tools",
         "Deterministic orchestration today; LLM-driven narrative reasoning is not implemented.",
     )
     st.dataframe(
@@ -529,7 +592,7 @@ with economics:
 
 with cyber:
     section_title(
-        "01 / Financial decision support", "Model the downside, challenge the assumptions",
+        "01 / Capital at risk", "Quantify the downside. Challenge every assumption.",
         "The model assumes future failures; blocked requests in this fixture produced no such loss.",
     )
     a, b, c, d = st.columns(4)
@@ -602,7 +665,7 @@ with cyber:
 
 with evidence:
     section_title(
-        "01 / Accountability", "Human decision & evidence room",
+        "01 / Audit governance", "Human decision & evidence room",
         "This queue approves or rejects a recommendation, never a bank operation.",
     )
     a, b = st.columns([1.3, 1], gap="large")
@@ -643,6 +706,8 @@ with evidence:
             st.write("**Source SHA-256:** " + report["provenance"]["case_sha256"][:22] + "…")
             st.write("**Evidence items:** " + str(len(report["evidence"])))
             st.write("**Read-only tool traces:** " + str(len(report["tool_trace"])))
+            st.write("**Synthetic ledger:** " + ledger_evidence["status"])
+            st.write("**Declared cross-region requests:** " + str(sovereign_evidence["outside_declared_boundary_count"]))
             st.write("**Current economic assumptions:**")
             st.json(
                 {
@@ -663,6 +728,8 @@ with evidence:
             st.write(item["description"])
     export = {
         "report": report,
+        "synthetic_ledger_reconciliation": ledger_evidence,
+        "synthetic_sovereign_policy_replay": sovereign_evidence,
         "uncontrolled_comparison": baseline,
         "hypothetical_control_economics": comparison,
         "decision_snapshot_id": decision_snapshot_id,
@@ -685,6 +752,6 @@ with evidence:
 
 st.divider()
 st.caption(
-    "AEGIS-NHI v0.2 development · 1 of 4 scenarios implemented · deterministic "
+    "AEGIS-NHI v0.3 development · 1 of 4 scenarios implemented · deterministic "
     "agent roles · synthetic risk model · not a production autonomous CRO."
 )

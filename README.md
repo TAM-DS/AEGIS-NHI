@@ -4,7 +4,7 @@
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.2 executive-evidence milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a redesigned five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
+**Status: v0.3 autonomous-perimeter and financial-frontier milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a redesigned five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
 
 All events, banks, non-human identities, costs and loss assumptions here are **synthetic**. This is not a deployed security system, production risk assessment, actual loss, or realized saving.
 
@@ -86,6 +86,19 @@ Screenshots should be captured from the functioning app **after local visual QA*
 - Not a certified FAIR calculation, live banking implementation, or claim of NIST compliance.
 
 References: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [OWASP GenAI Security](https://genai.owasp.org/), [FAIR](https://www.fairinstitute.org/).
+
+## Institutional authority intelligence · v0.3
+
+**Deconstruct the authority. Quantify the exposure.**
+
+*Audit the autonomous perimeter. Govern proposed agentic mutations, reconcile financial evidence, and stress-test modeled capital-at-risk before human review.*
+
+This milestone adds two **synthetic, offline** features without a bank connection:
+
+- **Ledger reconciliation:** check fictional opening/closing snapshots against any modeled double-entry postings. Correlate postings to recorded executed tool actions and their NHI authorization replay. A blocked request with a journal posting is flagged; divergent balances are not silently ignored. Baseline case BANK-NHI-001 has **zero journal postings**, not a prevented dollar loss.
+- **Sovereign-routing policy replay:** compare declared simulated destination-region metadata with a US-only processing allowlist. A bulk-export attempt declares an EU destination and is blocked in the original event fixture. This is a policy comparison, **not real network routing or country-level regulatory compliance**.
+
+The executive UI now uses "Autonomous Perimeter," "Ledger & FinOps," "Capital at Risk," and "Audit & Decisions." It distinguishes retrospective governance evidence from actual runtime enforcement. **No transaction signing, real bank ledger reconciliation, live sovereign routing, or immutable audit infrastructure is implemented.** SHA-256 hashes are not cryptographic approval signatures.
 
 ## Next work
 
