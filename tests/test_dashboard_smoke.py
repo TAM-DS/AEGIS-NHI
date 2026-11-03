@@ -21,3 +21,6 @@ def test_streamlit_executive_app_initial_render():
     assert "Mitigated modeled annual loss*" in labels
     assert "Investment case" in labels
     assert "Recommendation review" in labels
+    assert "Recorded synthetic tool calls" in labels
+    assert "Normal-workflow amplification" in labels
+    assert "Rule findings" in labels

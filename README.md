@@ -4,7 +4,7 @@
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.3 autonomous-perimeter and financial-frontier milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a redesigned five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
+**Status: v0.4 autonomous-agent forensics milestone.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a redesigned five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
 
 All events, banks, non-human identities, costs and loss assumptions here are **synthetic**. This is not a deployed security system, production risk assessment, actual loss, or realized saving.
 
@@ -20,7 +20,7 @@ Bank risk leadership must distinguish what an agent can technically do from what
 
 **Three deterministic workflow roles (no LLM calls at v0.1):** FinOps Auditor, Risk Actuary, Executive Reporter. The explicit tool registry is read-only, capped and hashed.
 
-Four planned banking scenarios: unauthorized third-party agent actions; cyber/data exposure; runaway AI spending; shadow AI. **Only unauthorized third-party agent actions are active so far.**
+Four planned banking scenarios: unauthorized third-party agent actions; cyber/data exposure; runaway AI spending; shadow AI. **Unauthorized third-party agent actions and runaway AI spending are now separate, working synthetic investigations.**
 
 [Full architecture blueprint](docs/ARCHITECTURE.md)
 
@@ -108,8 +108,23 @@ The investment panel updates its modeled annual risk reduction, first-year net m
 
 The five views are ranked for future investment: Capital at Risk (model/economics), Executive Authority (30-second briefing), Autonomous Perimeter (trust boundary audit), Audit & Decisions (human accountability), and Ledger & FinOps (working fixture reconciliation and tool costs, with additional anomaly detectors still to build).
 
+## Autonomous Agent Forensics · v0.4
+
+**Audit the behavior. Expose the cost. Govern the consequence.**
+
+A new **Agent Forensics** executive tab investigates synthetic case **BANK-FINOPS-002** from the versioned data/scenarios/runaway_agent.json fixture. All data are fictional and no real banking system is contacted.
+
+- **Observed fixture:** Six consecutive minute buckets contain 600 synthetic research-tool calls versus 12 normal calls per workflow (50× amplification), 570 identical-signature calls (95%), one million input tokens, 441,000 output tokens and six fictional GPU minutes.
+- **Detectors:** Consecutive burst above the normal per-minute rate, cumulative workflow-call budget overrun, repeated-signature concentration, and independent detection of recorded execution outside a scoped NHI grant. Findings link to evidence and first-detection minute.
+- **Financial evidence:** Model token cost using hypothetical pricing of synthetic token counts; price GPU-meter use separately. These providers' cost scopes can overlap and **must never be added together** or called invoiced spend.
+- **Forward sensitivity:** Additional 1–24 hours are linearly extrapolated from six synthetic observed minutes; changing a rate or horizon does not mutate source events. This is not a production forecast or promised cost saving.
+- **Review governance:** A reviewer approves or rejects the *investigation recommendation* for an exact pricing, threshold and horizon snapshot. No automated stop, credential action, cloud mutation or bank transaction exists.
+- **Tests:** Bounded inputs, deterministic evidence reconciliation, alert rules, sensitivity separation, scoped authorization replay and a render smoke test.
+
+The incident demonstrates that **individual tool calls can remain within a grant while workflow behavior becomes unsafe**. The platform identifies the modeled concern; it does not claim autonomous enforcement.
+
 ## Next work
 
-Pass CI; verify the app in a browser; publish actual screenshots; add the other three distinct synthetic cases and FinOps anomaly analytics; then optionally add model-based narrated investigation guarded by deterministic verification.
+Pass CI, visually inspect all six views, publish actual application screenshots, and build the remaining cyber data-exposure and shadow-AI scenarios. Optional bounded model narration comes only after deterministic evidence verification.
 
 **Build the technology. Understand the economics. Earn the trust. Grow the business.**

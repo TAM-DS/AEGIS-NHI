@@ -16,6 +16,7 @@ import streamlit as st
 from aegis_nhi.economics import compare_control_investment
 from aegis_nhi.briefing import interpret_control_case
 from aegis_nhi.review import add_review, get_reviews
+from aegis_nhi.ui_forensics import render_forensics
 from aegis_nhi.risk import quantify_annual_loss
 from aegis_nhi.workflow import load_case, run_case
 from pathlib import Path
@@ -283,7 +284,7 @@ h3 {font-size:1.32rem!important;}
 
 with st.sidebar:
     st.markdown("## 🛡️ AEGIS-NHI")
-    st.caption("THE BEAST · ENGINEERING BUILD v0.3")
+    st.caption("THE BEAST · ENGINEERING BUILD v0.4")
     st.divider()
     st.markdown("### Scenario controls")
     freq = st.slider(
@@ -366,11 +367,12 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-overview, identity, economics, cyber, evidence = st.tabs(
+overview, identity, economics, forensics, cyber, evidence = st.tabs(
     [
         "🏛️ Executive Authority",
         "🔐 Autonomous Perimeter",
         "⚡ Ledger & FinOps",
+        "🧬 Agent Forensics",
         "📊 Capital at Risk",
         "📁 Audit & Decisions",
     ]
@@ -454,6 +456,18 @@ with overview:
             "The blocked export declared an EU destination against a synthetic US-only "
             "policy. No actual data routing occurred. Ledger balances were fictional "
             "and reconciliation does not prove any real capital was protected."
+        )
+    with st.container(border=True):
+        st.markdown("#### Cross-scenario audit · autonomous agent forensics")
+        st.write(
+            "Separate synthetic case **BANK-FINOPS-002** contains 600 research-tool "
+            "calls against a 12-call normal workflow (50× amplification). "
+            "Open **Agent Forensics** for actual detector results, evidence, "
+            "hypothetical cost estimates, and a human investigation decision."
+        )
+        st.caption(
+            "Independent fictional incident and accounting basis: its estimated token "
+            "and GPU charges are not combined with BANK-NHI-001 annualized cyber exposure."
         )
     section_title(
         "02 / Agentic mutation evidence", "Authorization event timeline",
@@ -587,13 +601,16 @@ with economics:
         + " budgeted tool calls; no network, IAM mutation, transfer, or remediation tool."
     )
     with st.container(border=True):
-        st.markdown("#### FinOps limitation: runaway-cost detection comes next")
+        st.markdown("#### A second investigation is now active: Agent Forensics")
         st.write(
-            "Runaway tool loops, cloud/GPU spend drift and token routing "
-            "require distinct future synthetic telemetry. Those detectors are "
-            "**not yet implemented**; this tab currently reports incident tool calls "
-            "and synthetic per-call costs."
+            "The new **Agent Forensics** tab analyzes a separate synthetic 600-call "
+            "research-agent loop. It provides rule-based detection, scoped authority "
+            "checks, hypothetical token and GPU metering, and an independent human "
+            "review queue. This ledger view remains anchored to BANK-NHI-001."
         )
+
+with forensics:
+    render_forensics(ROOT / "data/scenarios/runaway_agent.json", REVIEWS)
 
 with cyber:
     section_title(
@@ -782,6 +799,6 @@ with evidence:
 
 st.divider()
 st.caption(
-    "AEGIS-NHI v0.3 development · 1 of 4 scenarios implemented · deterministic "
+    "AEGIS-NHI v0.4 development · 2 of 4 scenarios implemented · deterministic "
     "agent roles · synthetic risk model · not a production autonomous CRO."
 )
