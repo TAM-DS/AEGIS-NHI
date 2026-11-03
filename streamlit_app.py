@@ -100,7 +100,7 @@ def evidence_sankey(rows: list[dict]) -> go.Figure:
         for start, end in ((row["identity_id"], action), (action, destination)):
             sources.append(lookup[start])
             targets.append(lookup[end])
-            colors.append(color + "8c")
+            colors.append(color)  # Plotly Sankey accepts standard six-digit hex colors
             hover.append(event_hover)
     node_colors = (
         [CYAN] * len(identities)
@@ -438,7 +438,7 @@ with overview:
         "02 / Incident evidence", "Authorization event timeline",
         "Time-ordered synthetic tool requests; orange indicates blocked requests.",
     )
-    st.plotly_chart(timeline_chart(CASE, rows), use_container_width=True)
+    st.plotly_chart(timeline_chart(CASE, rows), width="stretch")
     st.caption(
         "The events occurred in a simulated 2026-10-22 UTC window. "
         "Only the authorized summary read executed."
@@ -449,7 +449,7 @@ with identity:
         "01 / Trust boundary", "Identity-to-action authority map",
         "Each line represents a synthetic tool request, not a bank network connection.",
     )
-    st.plotly_chart(evidence_sankey(rows), use_container_width=True)
+    st.plotly_chart(evidence_sankey(rows), width="stretch")
     st.caption(
         "Blue nodes identify the agent and requested resource/action. "
         "Green paths were authorized; amber paths were blocked. "
@@ -474,7 +474,7 @@ with identity:
             }
             for r in rows
         ],
-        use_container_width=True, hide_index=True,
+        width="stretch", hide_index=True,
     )
     x, y = st.columns([1, 1])
     with x:
@@ -511,7 +511,7 @@ with economics:
              "Output hash": t["output_sha256"][:22] + "…", "Read only": t["read_only"]}
             for t in report["tool_trace"]
         ],
-        use_container_width=True, hide_index=True,
+        width="stretch", hide_index=True,
     )
     st.progress(len(report["tool_trace"]) / report["tool_budget"])
     st.caption(
@@ -540,7 +540,7 @@ with cyber:
     distribution_col, comparison_col = st.columns([1.55, 1], gap="large")
     with distribution_col:
         st.markdown("#### Distribution across 5,000 simulated annual outcomes")
-        st.plotly_chart(loss_histogram(risk["annual_loss_histogram"]), use_container_width=True)
+        st.plotly_chart(loss_histogram(risk["annual_loss_histogram"]), width="stretch")
         st.caption(
             "These are *annual outcome* frequencies from the seeded model, "
             "not observed incidents or statistical confidence intervals."
@@ -558,7 +558,7 @@ with cyber:
             )
         )
         bar.update_yaxes(title="USD / hypothetical year")
-        st.plotly_chart(plot_style(bar, height=365), use_container_width=True)
+        st.plotly_chart(plot_style(bar, height=365), width="stretch")
         st.caption("Controls are not deployed; effectiveness is an editable assumption.")
     st.markdown("### Hypothetical control-investment economics")
     a, b, c, d = st.columns(4)
@@ -586,7 +586,7 @@ with cyber:
         "Every cell is calculated from synthetic frequency × severity assumptions, "
         "NOT measured bank risk.",
     )
-    st.plotly_chart(control_sensitivity_heatmap(CASE["annual_loss_model"]), use_container_width=True)
+    st.plotly_chart(control_sensitivity_heatmap(CASE["annual_loss_model"]), width="stretch")
     with st.expander("Inspect all assumptions and model limitations", expanded=False):
         st.json(
             {
@@ -656,7 +656,7 @@ with evidence:
             )
     if history:
         st.markdown("#### Recorded human review history")
-        st.dataframe(history, use_container_width=True, hide_index=True)
+        st.dataframe(history, width="stretch", hide_index=True)
     st.markdown("### Evidence cards")
     for item in report["evidence"]:
         with st.expander(item["evidence_id"] + " · " + item["kind"]):
