@@ -14,6 +14,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from aegis_nhi.economics import compare_control_investment
+from aegis_nhi.briefing import interpret_control_case
 from aegis_nhi.review import add_review, get_reviews
 from aegis_nhi.risk import quantify_annual_loss
 from aegis_nhi.workflow import load_case, run_case
@@ -344,6 +345,10 @@ decision_snapshot_id = hashlib.sha256(
 ).hexdigest()[:24]
 history = get_reviews(REVIEWS, decision_snapshot_id)
 latest = history[0]["decision"] if history else "PENDING HUMAN REVIEW"
+interpretation = interpret_control_case(
+    comparison, assumed_effectiveness_pct=control,
+    reviewer_decision=history[0]["decision"] if history else None,
+)
 denied = [r for r in rows if not r["authorized"]]
 violations = [r for r in rows if r["control_failure"]]
 
@@ -582,7 +587,7 @@ with economics:
         + " budgeted tool calls; no network, IAM mutation, transfer, or remediation tool."
     )
     with st.container(border=True):
-        st.markdown("#### Where the FinOps auditor goes next")
+        st.markdown("#### FinOps limitation: runaway-cost detection comes next")
         st.write(
             "Runaway tool loops, cloud/GPU spend drift and token routing "
             "require distinct future synthetic telemetry. Those detectors are "
@@ -592,14 +597,18 @@ with economics:
 
 with cyber:
     section_title(
-        "01 / Capital at risk", "Quantify the downside. Challenge every assumption.",
+        "01 / Capital at risk", "Quantify the downside. Price the control.",
         "The model assumes future failures; blocked requests in this fixture produced no such loss.",
     )
     a, b, c, d = st.columns(4)
-    a.metric("Expected annual loss: no added control", dollars(baseline["expected_annual_loss_usd"]))
-    b.metric("Expected annual loss: assumed control", dollars(risk["expected_annual_loss_usd"]))
-    c.metric("P50 modeled annual outcome", dollars(risk["p50_annual_loss_usd"]))
-    d.metric("P90 modeled annual outcome", dollars(risk["p90_annual_loss_usd"]))
+    a.metric("Unmitigated modeled annual loss*", dollars(baseline["expected_annual_loss_usd"]))
+    b.metric("Mitigated modeled annual loss*", dollars(risk["expected_annual_loss_usd"]))
+    c.metric("Median annual loss outcome (P50)", dollars(risk["p50_annual_loss_usd"]))
+    d.metric("Severe annual loss scenario (P90)", dollars(risk["p90_annual_loss_usd"]))
+    st.caption(
+        "*Unmitigated means **no proposed additional control** in this model, not an "
+        "absence of existing banking controls. None of the numbers represents observed loss."
+    )
     distribution_col, comparison_col = st.columns([1.55, 1], gap="large")
     with distribution_col:
         st.markdown("#### Distribution across 5,000 simulated annual outcomes")
@@ -623,7 +632,7 @@ with cyber:
         bar.update_yaxes(title="USD / hypothetical year")
         st.plotly_chart(plot_style(bar, height=365), width="stretch")
         st.caption("Controls are not deployed; effectiveness is an editable assumption.")
-    st.markdown("### Hypothetical control-investment economics")
+    st.markdown("### Price the control · hypothetical investment economics")
     a, b, c, d = st.columns(4)
     a.metric("One-time assumed cost", dollars(comparison["one_time_control_cost_usd"]))
     b.metric("Annual assumed operations", dollars(comparison["annual_control_operating_cost_usd"]))
@@ -645,7 +654,27 @@ with cyber:
             + " months, conditional on the entered control-effectiveness assumption."
         )
     section_title(
-        "02 / Assumption stress test", "Risk exposure sensitivity heatmap",
+        "02 / Investment committee interpretation",
+        "The decision, not just the chart",
+        "Recalculates with the selected hypothetical inputs and human recommendation-review record.",
+    )
+    with st.container(border=True):
+        st.markdown("#### Executive interpretation")
+        st.markdown(interpretation["economic_interpretation"])
+        posture, review_status, reduction = st.columns([1.1, 1.2, 1.0])
+        posture.metric("Investment case", interpretation["investment_signal"])
+        review_status.metric("Recommendation review", interpretation["decision_status"])
+        reduction.metric(
+            "Modeled annual risk reduction",
+            dollars(comparison["modeled_annual_risk_reduction_usd"]),
+        )
+        st.write(interpretation["next_action"])
+        st.caption(
+            "Evidence basis: synthetic scenario assumptions. No actual loss, "
+            "booked savings, control deployment or operational authorization."
+        )
+    section_title(
+        "03 / Assumption stress test", "Risk exposure sensitivity heatmap",
         "Every cell is calculated from synthetic frequency × severity assumptions, "
         "NOT measured bank risk.",
     )
@@ -665,7 +694,7 @@ with cyber:
 
 with evidence:
     section_title(
-        "01 / Audit governance", "Human decision & evidence room",
+        "01 / Audit governance", "Audit the evidence. Retain human authority.",
         "This queue approves or rejects a recommendation, never a bank operation.",
     )
     a, b = st.columns([1.3, 1], gap="large")
@@ -732,6 +761,7 @@ with evidence:
         "synthetic_sovereign_policy_replay": sovereign_evidence,
         "uncontrolled_comparison": baseline,
         "hypothetical_control_economics": comparison,
+        "investment_interpretation": interpretation,
         "decision_snapshot_id": decision_snapshot_id,
         "human_review_history": history,
         "limitations": (

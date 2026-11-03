@@ -100,6 +100,14 @@ This milestone adds two **synthetic, offline** features without a bank connectio
 
 The executive UI now uses "Autonomous Perimeter," "Ledger & FinOps," "Capital at Risk," and "Audit & Decisions." It distinguishes retrospective governance evidence from actual runtime enforcement. **No transaction signing, real bank ledger reconciliation, live sovereign routing, or immutable audit infrastructure is implemented.** SHA-256 hashes are not cryptographic approval signatures.
 
+## Investment Committee Interpretation
+
+The **Capital at Risk** screen now translates the synthetic risk distribution into a dynamic institutional decision narrative. Four clarified metrics distinguish baseline (without the *proposed additional* control), residual exposure (assuming the proposed control), median P50 outcomes and P90 severe outcomes. No amount is an observed bank loss.
+
+The investment panel updates its modeled annual risk reduction, first-year net modeled value, three-year discounted net modeled value and **conditional** investment signal when proposed effectiveness or cost inputs change. Human review applies only to the exact evidence and cost snapshot. Neither a positive model signal nor recorded recommendation approval authorizes a real-world security or financial operation.
+
+The five views are ranked for future investment: Capital at Risk (model/economics), Executive Authority (30-second briefing), Autonomous Perimeter (trust boundary audit), Audit & Decisions (human accountability), and Ledger & FinOps (working fixture reconciliation and tool costs, with additional anomaly detectors still to build).
+
 ## Next work
 
 Pass CI; verify the app in a browser; publish actual screenshots; add the other three distinct synthetic cases and FinOps anomaly analytics; then optionally add model-based narrated investigation guarded by deterministic verification.

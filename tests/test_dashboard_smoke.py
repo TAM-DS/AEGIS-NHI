@@ -16,3 +16,8 @@ def test_streamlit_executive_app_initial_render():
     messages = [getattr(err, "message", str(err)) for err in app.exception]
     assert not messages, messages
     assert len(app.metric) >= 12
+    labels = [entry.label for entry in app.metric]
+    assert "Unmitigated modeled annual loss*" in labels
+    assert "Mitigated modeled annual loss*" in labels
+    assert "Investment case" in labels
+    assert "Recommendation review" in labels
