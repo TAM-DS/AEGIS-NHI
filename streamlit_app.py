@@ -537,15 +537,15 @@ with cyber:
     b.metric("Expected annual loss: assumed control", dollars(risk["expected_annual_loss_usd"]))
     c.metric("P50 modeled annual outcome", dollars(risk["p50_annual_loss_usd"]))
     d.metric("P90 modeled annual outcome", dollars(risk["p90_annual_loss_usd"]))
-    l, r = st.columns([1.55, 1], gap="large")
-    with l:
+    distribution_col, comparison_col = st.columns([1.55, 1], gap="large")
+    with distribution_col:
         st.markdown("#### Distribution across 5,000 simulated annual outcomes")
         st.plotly_chart(loss_histogram(risk["annual_loss_histogram"]), use_container_width=True)
         st.caption(
             "These are *annual outcome* frequencies from the seeded model, "
             "not observed incidents or statistical confidence intervals."
         )
-    with r:
+    with comparison_col:
         st.markdown("#### Before and after a hypothetical control")
         bar = go.Figure(
             go.Bar(
