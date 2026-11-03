@@ -1,42 +1,74 @@
-# AEGIS-NHI
-### Autonomous Chief Risk Officer & Cyber Risk Quantification
+# AEGIS-NHI · THE BEAST 🛡️
 
-> **Capability is not authority. An AI agent's ability to act does not constitute permission to act.**
+**Autonomous Chief Risk Officer & Cyber Risk Quantification**
 
-**Status:** Foundation / under active development. This repository is a research and executive decision-support prototype, **not a production banking platform**.
+> Capability is not authority. Evidence before action. Humans retain control.
 
-AEGIS-NHI connects **Non-Human Identity (NHI) authorization analysis**, **AI infrastructure economics**, and **cyber risk quantification** in one evidence-led executive risk platform.
+**Status: v0.1 development foundation.** The third-party-agent case, grant policy replay, seeded annual-loss model, three deterministic agent roles, bounded tool trace, local human-review ledger, tests and a five-view executive console are implemented on the feature branch. The other three planned cases, LLM-backed agent reasoning, and production integrations are NOT yet implemented.
 
-## Mission
+All events, banks, non-human identities, costs and loss assumptions here are **synthetic**. This is not a deployed security system, production risk assessment, actual loss, or realized saving.
 
-Give a CRO, CFO, or CEO a reproducible answer to three questions:
+## Why
 
-1. **What happened?** Separate observed synthetic event evidence from interpretation.
-2. **What could it cost?** Quantify scenario-based exposure without mistaking assumptions for actual losses.
-3. **Who is authorized to act?** Enforce read-only tool access and human approval for consequential decisions.
+Bank risk leadership must distinguish what an agent can technically do from what it is authorized to do, evaluate credible downside assumptions and make decisions with traceable evidence.
 
-## Architecture to build
+## Two engines, three governed roles
 
-- **Engine 1 — FinOps & NHI Investigator:** synthetic cloud/LLM consumption, token amplification, anomalous tool calls, and agent authorization.
-- **Engine 2 — Cyber Risk Actuary:** bounded loss-exposure modeling, uncertainty ranges, and severity classification.
-- **Agent A — FinOps Auditor:** investigate spend and runtime patterns using allowlisted read-only tools.
-- **Agent B — Risk Actuary:** quantify hypothetical financial blast radius using documented assumptions.
-- **Agent C — Executive Reporter:** assemble CRO/CFO/CEO briefing with citations to evidence and explicit human approval gates.
+**Engine 1: NHI / FinOps investigator.** Event-time scoped grants, denied actions, simulated runtime charges and bounded tools.
 
-Four synthetic bank scenarios: unauthorized third-party AI actions, vulnerable infrastructure, runaway agent/token spending, and shadow AI/data exposure.
+**Engine 2: Cyber risk quantification.** Seeded Poisson annual event frequency and triangular loss magnitude (FAIR-inspired scenario model), with sensitivity sliders. The analytical expected annual loss is conditional on hypothetical future control failures. P10, P50 and P90 are *outcome quantiles*, not confidence intervals.
 
-## Non-negotiable controls
+**Three deterministic workflow roles (no LLM calls at v0.1):** FinOps Auditor, Risk Actuary, Executive Reporter. The explicit tool registry is read-only, capped and hashed.
 
-- **Synthetic data only.** No actual bank credentials or client secrets.
-- **Read-only, bounded tools.** No autonomous remediation, transactions, permission changes, or external side effects.
-- **Human decision rights.** Every operationally consequential recommendation requires human review.
-- **Financial integrity.** Distinguish *observed synthetic amounts*, *modeled exposure*, and *uncertain assumptions*.
-- **Reproducible evidence.** Tests, fixtures, and documented scenario lineage before marketing claims.
+Four planned banking scenarios: unauthorized third-party agent actions; cyber/data exposure; runaway AI spending; shadow AI. **Only unauthorized third-party agent actions are active so far.**
 
-## Development approach
+[Full architecture blueprint](docs/ARCHITECTURE.md)
 
-Build and test the deterministic engines and scenarios first, then the governed agent orchestration and executive dashboard. This repository is private-development material until reviewed for publication; if the GitHub repository is currently public, **do not commit secrets or real client information**.
+## Quick start: Mac and Python 3.13
 
----
+Clone or pull the feature/beast-foundation branch, then run these commands in the repository folder:
 
-**AEGIS-NHI** — *The Beast*. Built for evidence, accountability, and executive judgment.
+    uv sync --extra dev --extra dashboard
+    uv run pytest -q
+    uv run python -m aegis_nhi.cli --output artifacts/nhi_demo_report.json
+    uv run streamlit run streamlit_app.py
+
+Or use a normal Python virtual environment:
+
+    python -m pip install -e ".[dev,dashboard]"
+    python -m pytest -q
+    python -m streamlit run streamlit_app.py
+
+No API keys, bank accounts, cloud accounts or paid services. Reviewer decisions are stored only in local gitignored .aegis/reviews.sqlite3.
+
+## First case: BANK-NHI-001
+
+- One authorized synthetic account-summary read is recorded as executed.
+- An attempted transfer without a scoped resource grant is recorded as blocked.
+- A bulk-export request without the permitted action is recorded as blocked.
+- A read request after grant expiry is recorded as blocked.
+
+**Recorded synthetic tool charges:** $0.016 — not an invoice.
+
+**Hypothetical modeled annual exposure:** 1.7 annual events, $80,000 minimum / $200,000 mode / $900,000 maximum synthetic severity; the resulting analytical expected annual loss at baseline is **$668,666.67**. This is NOT an observed or prevented loss; it is a counterfactual scenario if controls fail in the future, not the financial consequence of the blocked event.
+
+## Executive views
+
+Executive Overview; NHI & Agent Controls; FinOps & Agents; Cyber Risk Quantification; Decision & Evidence. All figures are labeled by basis. A human reviewer can approve or reject the recommendation with rationale; that action does not authorize financial transfers, grant changes or cloud remediation. An evidence JSON package can be exported.
+
+## Controls and limitations
+
+- Deny-by-default scope, action and event-time grant replay; recorded unauthorized executions are flagged.
+- Seeded model reruns and bounded hypothetical loss assumptions.
+- Allowlisted tools with per-case call budget and SHA-256 output traces.
+- Synthetic fixture charges are **never added** to annualized cyber-risk figures.
+- Human reviews are local audit entries, not operational approvals.
+- Not a certified FAIR calculation, live banking implementation, or claim of NIST compliance.
+
+References: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [OWASP GenAI Security](https://genai.owasp.org/), [FAIR](https://www.fairinstitute.org/).
+
+## Next work
+
+Pass CI; verify the app in a browser; publish actual screenshots; add the other three distinct synthetic cases and FinOps anomaly analytics; then optionally add model-based narrated investigation guarded by deterministic verification.
+
+**Build the technology. Understand the economics. Earn the trust. Grow the business.**
