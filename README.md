@@ -36,12 +36,11 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 **Meet The Beast:** a little black-cat guardian of the autonomous perimeter, with crusader armor, neon-blue eyes, white claws and a mace-shaped tail. He belongs in the app sidebar because a memorable product identity matters alongside tested engineering.
 
-
 **Autonomous Chief Risk Officer & Cyber Risk Quantification**
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.5 synthetic reference milestone.** Four distinct fictional investigations, deterministic governance, evidence-grounded narration, a seven-view Streamlit dashboard, human recommendation review and automated tests are implemented in the v0.5 reference milestone. This is not a deployed security system, live bank monitor, certified risk assessment, or a claim of actual prevented losses.
+**Status: v0.5 synthetic reference milestone.** Four distinct fictional investigations, deterministic governance, evidence-grounded narration, a seven-view Streamlit dashboard, human recommendation review and automated tests are implemented. This is not a deployed security system, live bank monitor, certified risk assessment, or a claim of actual prevented losses.
 
 All events, banks, non-human identities, costs and modeled losses are **synthetic**. Agent roles are deterministic functions, not autonomous LLM agents; external model selection is optional and explicitly user-initiated.
 
@@ -88,13 +87,13 @@ The original captures below remain available as direct screenshots of the functi
 
 </details>
 
-**Evidence boundary:** All inputs and reported events are fictional. Figures are hypothetical, not measured bank losses, prevented losses, or verified cloud bills. The composite is for executive communication; the original screenshots and versioned fixtures are the application evidence. An earlier Investment Committee close-up is retained in [docs/images](docs/images) but not featured because it predates a currency-rendering correction.
+**Evidence boundary:** All inputs and reported events are fictional. Figures are hypothetical, not measured bank losses, prevented losses, or verified cloud bills. The composite is for executive communication; the original screenshots and versioned fixtures are the application evidence.
 
 ---
 
 ## Why
 
-Bank risk leadership must distinguish what an agent can technically do from what it is authorized to do, evaluate credible downside assumptions and make decisions with traceable evidence.
+Bank risk leadership must distinguish what an agent can technically do from what it is authorized to do, evaluate credible downside assumptions, and make decisions with traceable evidence.
 
 ## Product-building mindset: From market signal to release
 
@@ -110,6 +109,12 @@ AEGIS-NHI was approached as an end-to-end enterprise product, not just a technic
 8. **Delivery discipline:** Validate, test, document, and refine before release.
 
 **Product principle:** Start with the business problem. Make authority explicit, quantify the assumptions, preserve the evidence, and earn the trust.
+
+### How the project actually evolved
+
+This started as a more limited idea and grew far beyond the original plan. Over roughly six weeks the design shifted repeatedly as real-world signals appeared in the press—the same headlines that inspired the opening story. Building it required learning new skills in real time: deterministic multi-role agent workflows, evidence-locked narration, cyber-risk quantification patterns, Streamlit executive dashboards, and the discipline of keeping every claim grounded in versioned fixtures and tests.
+
+Tools that accelerated the work included GitHub Copilot, Grok, and Codex (used for the visual identity of The Beast and the presentation composites). The result is a complete reference system that tries to demonstrate product thinking and rapid learning as much as engineering.
 
 ## Two analytical engines. Three governed roles. Four investigations.
 
@@ -127,20 +132,24 @@ AEGIS-NHI was approached as an end-to-end enterprise product, not just a technic
 
 Clone the default branch and run the seven-view executive app:
 
-    git clone https://github.com/TAM-DS/aegis-nhi.git
-    cd aegis-nhi
-    uv sync --extra dev --extra dashboard
-    uv run pytest -q
-    uv run python -m aegis_nhi.cli --output artifacts/nhi_demo_report.json
-    uv run streamlit run streamlit_app.py
+```bash
+git clone https://github.com/TAM-DS/aegis-nhi.git
+cd aegis-nhi
+uv sync --extra dev --extra dashboard
+uv run pytest -q
+uv run python -m aegis_nhi.cli --output artifacts/nhi_demo_report.json
+uv run streamlit run streamlit_app.py
+```
 
 Or use a standard Python environment:
 
-    python -m pip install -e ".[dev,dashboard]"
-    python -m pytest -q
-    python -m streamlit run streamlit_app.py
+```bash
+python -m pip install -e ".[dev,dashboard]"
+python -m pytest -q
+python -m streamlit run streamlit_app.py
+```
 
-The entire baseline needs **no API key, live bank, cloud account or paid service**. Named human reviews are stored in the local gitignored SQLite file at .aegis/reviews.sqlite3. Optional model-ordered claim cards require the extra narration package, a locally configured OPENAI_API_KEY, and a manual click; no model calls occur by default.
+The entire baseline needs **no API key, live bank, cloud account or paid service**. Named human reviews are stored in the local gitignored SQLite file at `.aegis/reviews.sqlite3`. Optional model-ordered claim cards require the extra narration package, a locally configured `OPENAI_API_KEY`, and a manual click; no model calls occur by default.
 
 ## First case: BANK-NHI-001
 
@@ -151,7 +160,7 @@ The entire baseline needs **no API key, live bank, cloud account or paid service
 
 **Recorded synthetic tool charges:** $0.016 — not an invoice.
 
-**Hypothetical modeled annual exposure:** 1.7 annual events, $80,000 minimum / $200,000 mode / $900,000 maximum synthetic severity; the resulting analytical expected annual loss at baseline is **$668,666.67**. This is NOT an observed or prevented loss; it is a counterfactual scenario if controls fail in the future, not the financial consequence of the blocked event.
+**Hypothetical modeled annual exposure:** 1.7 annual events, $80,000 minimum / $200,000 mode / $900,000 maximum synthetic severity; the resulting analytical expected annual loss at baseline is **$668,666.67**. This is a counterfactual scenario if controls fail in the future, not an observed or prevented loss.
 
 ## Four completed synthetic investigations · v0.5
 
@@ -162,7 +171,7 @@ The entire baseline needs **no API key, live bank, cloud account or paid service
 | **BANK-DATA-003 — Sensitive-data exposure** | Are restricted actions or declared regions outside policy? | Blocked bulk export plus a separately recorded, fictional executed region-policy exception |
 | **BANK-SHADOW-004 — Shadow AI** | Can an approved identity still use an unregistered AI tool? | Detects unknown AI identities separately from unknown AI tools; compares executed and blocked synthetic events |
 
-**An attempted action is not an executed action.** An executed *synthetic* event is not an actual breach or live monitoring proof. Hypothetical expected loss is not money lost or saved.
+**An attempted action is not an executed action.** An executed *synthetic* event is not an actual breach. Hypothetical expected loss is not money lost or saved.
 
 ## Seven working executive views
 
@@ -174,7 +183,7 @@ The entire baseline needs **no API key, live bank, cloud account or paid service
 6. **Audit & Decisions:** named human reviews attached to exact source and economic scenarios, exportable audit evidence.
 7. **Scenario Lab:** interactive data-exposure and shadow-AI cases, evidence-grounded findings, executive narration, case-specific human review.
 
-The published six-view screenshot gallery is actual v0.4 app output. The seventh tab is implemented and covered by an automated Streamlit render test; its visual capture should be taken from the running v0.5 app.
+The published six-view screenshot gallery is actual v0.4 app output. The seventh tab is implemented and covered by an automated Streamlit render test.
 
 ## Evidence-locked executive narration
 
@@ -184,9 +193,11 @@ A controlled Python generator creates plain-English claims from validated scenar
 
 Enable optional claim selection only when you want to use it:
 
-    uv sync --extra dev --extra dashboard --extra narration
-    # Configure OPENAI_API_KEY locally. Never commit it.
-    uv run streamlit run streamlit_app.py
+```bash
+uv sync --extra dev --extra dashboard --extra narration
+# Configure OPENAI_API_KEY locally. Never commit it.
+uv run streamlit run streamlit_app.py
+```
 
 ## The architecture and its boundaries
 
