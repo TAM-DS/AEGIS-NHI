@@ -45,6 +45,53 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 All events, banks, non-human identities, costs and modeled losses are **synthetic**. Agent roles are deterministic functions, not autonomous LLM agents; external model selection is optional and explicitly user-initiated.
 
+## The Beast in action · v0.5 executive showcase
+
+[![AEGIS-NHI v0.5 Scenario Lab showing restricted-data exposure and a named-human recommendation review](docs/images/aegis-nhi-scenario-lab-v05.png)](docs/images/aegis-nhi-scenario-lab-v05.png)
+
+*The latest v0.5 presentation composite, assembled from views of the running Streamlit Scenario Lab. It highlights the restricted-data exposure investigation and its human-review workflow. This is a designed showcase image; the fictional findings, financial assumptions, and review status are not proof of deployed controls or actual incidents.*
+
+### Working application · Original six executive views (v0.4 baseline)
+
+The original captures below remain available as direct screenshots of the functioning Streamlit dashboard. The seventh **Scenario Lab** view was added and tested in v0.5.
+
+[![Executive Authority briefing displaying fictitious agent event evidence and modeled annual downside](docs/images/Executive_Authority-01.png)](docs/images/Executive_Authority-01.png)
+
+*Executive Authority — distinguish recorded synthetic requests and blocked attempts from hypothetical future loss.*
+
+| Autonomous Perimeter · Evidence Chain | Ledger & FinOps · Financial Frontiers |
+|:---:|:---:|
+| [![Identity, grant, and evidence chain in AEGIS-NHI](docs/images/Evidence_Chain-04.png)](docs/images/Evidence_Chain-04.png) | [![Synthetic ledger reconciliation and financial boundaries](docs/images/Financial_Frontiers-05.png)](docs/images/Financial_Frontiers-05.png) |
+
+[![Agent Forensics evidence showing bounded synthetic tool-call investigation](docs/images/Audit_Behaviors-06.png)](docs/images/Audit_Behaviors-06.png)
+
+*Agent Forensics — abnormal call volume, repeat signatures, and rule-to-evidence mapping; no real provider billing or agent shutdown.*
+
+| Capital at Risk · Hypothetical Exposure | Audit & Decisions · Human Recommendation Authority |
+|:---:|:---:|
+| [![Fictional annual-loss distributions and risk modeling assumptions](docs/images/Capital_Risk-08.png)](docs/images/Capital_Risk-08.png) | [![Evidence-backed audit and recommendation review controls](docs/images/Audit_Governance-10.png)](docs/images/Audit_Governance-10.png) |
+
+<details>
+<summary><strong>Explore additional original evidence screenshots</strong></summary>
+
+**Authorization replay · attempted versus executed actions**
+
+[![Fictional authorization event timeline](docs/images/Agentic_Mutation_Evidence-02.png)](docs/images/Agentic_Mutation_Evidence-02.png)
+
+**Forensic rule findings and first-alert conditions**
+
+[![Synthetic anomaly findings and modeled tool economics](docs/images/Forensic_Findings-07.png)](docs/images/Forensic_Findings-07.png)
+
+**Executive planning and modeled costs**
+
+[![Scenario-based hypothetical economics and decision summary](docs/images/What-Could-It-Cost-03.png)](docs/images/What-Could-It-Cost-03.png)
+
+</details>
+
+**Evidence boundary:** All inputs and reported events are fictional. Figures are hypothetical, not measured bank losses, prevented losses, or verified cloud bills. The composite is for executive communication; the original screenshots and versioned fixtures are the application evidence. An earlier Investment Committee close-up is retained in [docs/images](docs/images) but not featured because it predates a currency-rendering correction.
+
+---
+
 ## Why
 
 Bank risk leadership must distinguish what an agent can technically do from what it is authorized to do, evaluate credible downside assumptions and make decisions with traceable evidence.
