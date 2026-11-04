@@ -1,0 +1,126 @@
+{
+  "case_id": "BANK-SHADOW-004",
+  "title": "Unregistered third-party AI tool enters an approved workflow",
+  "scenario_type": "shadow_ai",
+  "synthetic": true,
+  "institution": "Fictional bank",
+  "scenario_context": "A simulated unregistered AI service and an approved agent using an unregistered tool. This is fixture-only visibility.",
+  "evidence": [
+    {
+      "evidence_id": "SA-001",
+      "kind": "fictional_event_evidence",
+      "description": "Registered agent used registered read-only tool."
+    },
+    {
+      "evidence_id": "SA-002",
+      "kind": "fictional_event_evidence",
+      "description": "Unregistered assistant attempted access and was blocked."
+    },
+    {
+      "evidence_id": "SA-003",
+      "kind": "fictional_event_evidence",
+      "description": "Registered identity used an unregistered third-party model tool; fictional event executed."
+    },
+    {
+      "evidence_id": "SA-004",
+      "kind": "fictional_event_evidence",
+      "description": "Unregistered assistant attempted data export and was blocked."
+    }
+  ],
+  "grants": [
+    {
+      "grant_id": "GR-SHADOW-1",
+      "identity_id": "approved-agent-07",
+      "resource_id": "analytics.summary",
+      "allowed_actions": [
+        "read_summary"
+      ],
+      "issued_at": "2026-10-25T09:00:00Z",
+      "expires_at": "2026-10-25T09:30:00Z",
+      "approved_by": "fictional-control-owner"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "SHADOW-001",
+      "occurred_at": "2026-10-25T09:02:00Z",
+      "identity_id": "approved-agent-07",
+      "resource_id": "analytics.summary",
+      "requested_action": "read_summary",
+      "observed_outcome": "executed",
+      "declared_destination_region": "US",
+      "synthetic_tool_cost_usd": 0.002,
+      "evidence_ids": [
+        "SA-001"
+      ],
+      "tool_id": "internal.reporting"
+    },
+    {
+      "event_id": "SHADOW-002",
+      "occurred_at": "2026-10-25T09:05:00Z",
+      "identity_id": "unregistered-assistant-09",
+      "resource_id": "analytics.summary",
+      "requested_action": "read_summary",
+      "observed_outcome": "blocked",
+      "declared_destination_region": "US",
+      "synthetic_tool_cost_usd": 0.004,
+      "evidence_ids": [
+        "SA-002"
+      ],
+      "tool_id": "unapproved.vendor-llm"
+    },
+    {
+      "event_id": "SHADOW-003",
+      "occurred_at": "2026-10-25T09:08:00Z",
+      "identity_id": "approved-agent-07",
+      "resource_id": "analytics.summary",
+      "requested_action": "read_summary",
+      "observed_outcome": "executed",
+      "declared_destination_region": "US",
+      "synthetic_tool_cost_usd": 0.007,
+      "evidence_ids": [
+        "SA-003"
+      ],
+      "tool_id": "unapproved.vendor-llm"
+    },
+    {
+      "event_id": "SHADOW-004",
+      "occurred_at": "2026-10-25T09:12:00Z",
+      "identity_id": "unregistered-assistant-09",
+      "resource_id": "customers.restricted",
+      "requested_action": "bulk_export",
+      "observed_outcome": "blocked",
+      "declared_destination_region": "EU",
+      "synthetic_tool_cost_usd": 0.006,
+      "evidence_ids": [
+        "SA-004"
+      ],
+      "tool_id": "unapproved.vendor-llm"
+    }
+  ],
+  "ai_registry": {
+    "registry_id": "AI-REGISTRY-004",
+    "approved_identity_ids": [
+      "approved-agent-07"
+    ],
+    "registered_tool_ids": [
+      "internal.reporting"
+    ]
+  },
+  "routing_policy": {
+    "policy_id": "ROUTE-SHADOW-004",
+    "data_classification": "synthetic_internal",
+    "approved_processing_regions": [
+      "US"
+    ]
+  },
+  "annual_loss_model": {
+    "annual_event_frequency": 1.4,
+    "loss_min_usd": 50000,
+    "loss_mode_usd": 210000,
+    "loss_max_usd": 1100000,
+    "simulations": 2500,
+    "seed": 404,
+    "basis": "fictional conditional scenario only"
+  }
+}
