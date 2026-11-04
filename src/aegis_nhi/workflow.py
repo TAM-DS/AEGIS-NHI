@@ -208,7 +208,7 @@ def run_case(
             "case_sha256": hashlib.sha256(
                 json.dumps(case, sort_keys=True).encode("utf-8")
             ).hexdigest(),
-            "engine_version": "0.1.0",
+            "engine_version": "0.5.0",
             "model": "seeded-poisson-triangular-v1",
         },
     }
