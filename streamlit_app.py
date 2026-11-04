@@ -17,6 +17,7 @@ from aegis_nhi.economics import compare_control_investment
 from aegis_nhi.briefing import interpret_control_case
 from aegis_nhi.review import add_review, get_reviews
 from aegis_nhi.ui_forensics import render_forensics
+from aegis_nhi.ui_scenarios import render_scenario_lab
 from aegis_nhi.risk import quantify_annual_loss
 from aegis_nhi.workflow import load_case, run_case
 from pathlib import Path
@@ -289,7 +290,7 @@ with st.sidebar:
         st.image(str(brand_art), width=88)
     with brand_right:
         st.markdown("**AEGIS-NHI**")
-        st.caption("THE BEAST · ENGINEERING BUILD v0.4")
+        st.caption("THE BEAST · ENGINEERING BUILD v0.5")
     st.caption("Guard the gates. Keep human authority.")
     st.divider()
     st.markdown("### Scenario controls")
@@ -373,7 +374,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-overview, identity, economics, forensics, cyber, evidence = st.tabs(
+overview, identity, economics, forensics, cyber, evidence, lab = st.tabs(
     [
         "🏛️ Executive Authority",
         "🔐 Autonomous Perimeter",
@@ -381,6 +382,7 @@ overview, identity, economics, forensics, cyber, evidence = st.tabs(
         "🧬 Agent Forensics",
         "📊 Capital at Risk",
         "📁 Audit & Decisions",
+        "🧪 Scenario Lab",
     ]
 )
 
@@ -807,8 +809,11 @@ with evidence:
         "review history. No bank or cloud systems are contacted."
     )
 
+with lab:
+    render_scenario_lab(ROOT, REVIEWS)
+
 st.divider()
 st.caption(
-    "AEGIS-NHI v0.4 development · 2 of 4 scenarios implemented · deterministic "
-    "agent roles · synthetic risk model · not a production autonomous CRO."
+    "AEGIS-NHI v0.5 reference · 4 of 4 synthetic scenarios · deterministic "
+    "governed roles · evidence-locked narration · not a production autonomous CRO."
 )
