@@ -41,7 +41,7 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.5 synthetic reference milestone.** Four distinct fictional investigations, deterministic governance, evidence-grounded narration, a seven-view Streamlit dashboard, human recommendation review and automated tests are implemented in the v0.5 release branch. This is not a deployed security system, live bank monitor, certified risk assessment, or a claim of actual prevented losses.
+**Status: v0.5 synthetic reference milestone.** Four distinct fictional investigations, deterministic governance, evidence-grounded narration, a seven-view Streamlit dashboard, human recommendation review and automated tests are implemented in the v0.5 reference milestone. This is not a deployed security system, live bank monitor, certified risk assessment, or a claim of actual prevented losses.
 
 All events, banks, non-human identities, costs and modeled losses are **synthetic**. Agent roles are deterministic functions, not autonomous LLM agents; external model selection is optional and explicitly user-initiated.
 
