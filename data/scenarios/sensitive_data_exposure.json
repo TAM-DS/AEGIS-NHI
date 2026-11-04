@@ -1,0 +1,141 @@
+{
+  "case_id": "BANK-DATA-003",
+  "title": "Restricted customer data exposure through an AI agent",
+  "scenario_type": "sensitive_data_exposure",
+  "synthetic": true,
+  "institution": "Fictional bank",
+  "scenario_context": "A simulated bulk-export denial and an executed US-only region-policy exception. No real data was exposed.",
+  "evidence": [
+    {
+      "evidence_id": "DE-001",
+      "kind": "fictional_event_evidence",
+      "description": "Approved summary read in the US."
+    },
+    {
+      "evidence_id": "DE-002",
+      "kind": "fictional_event_evidence",
+      "description": "Restricted bulk export request was blocked."
+    },
+    {
+      "evidence_id": "DE-003",
+      "kind": "fictional_event_evidence",
+      "description": "Restricted record read was recorded as executed toward an unapproved EU region."
+    },
+    {
+      "evidence_id": "DE-004",
+      "kind": "fictional_event_evidence",
+      "description": "Post-expiration restricted read request was blocked."
+    }
+  ],
+  "grants": [
+    {
+      "grant_id": "GR-DATA-1",
+      "identity_id": "data-agent-03",
+      "resource_id": "accounts.summary",
+      "allowed_actions": [
+        "read_summary"
+      ],
+      "issued_at": "2026-10-23T10:00:00Z",
+      "expires_at": "2026-10-23T10:20:00Z",
+      "approved_by": "fictional-control-owner"
+    },
+    {
+      "grant_id": "GR-DATA-2",
+      "identity_id": "data-agent-03",
+      "resource_id": "customers.restricted",
+      "allowed_actions": [
+        "read_record"
+      ],
+      "issued_at": "2026-10-23T10:00:00Z",
+      "expires_at": "2026-10-23T10:20:00Z",
+      "approved_by": "fictional-control-owner"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "DATA-001",
+      "occurred_at": "2026-10-23T10:02:00Z",
+      "identity_id": "data-agent-03",
+      "resource_id": "accounts.summary",
+      "requested_action": "read_summary",
+      "observed_outcome": "executed",
+      "declared_destination_region": "US",
+      "synthetic_tool_cost_usd": 0.003,
+      "evidence_ids": [
+        "DE-001"
+      ]
+    },
+    {
+      "event_id": "DATA-002",
+      "occurred_at": "2026-10-23T10:05:00Z",
+      "identity_id": "data-agent-03",
+      "resource_id": "customers.restricted",
+      "requested_action": "bulk_export",
+      "observed_outcome": "blocked",
+      "declared_destination_region": "EU",
+      "synthetic_tool_cost_usd": 0.008,
+      "evidence_ids": [
+        "DE-002"
+      ]
+    },
+    {
+      "event_id": "DATA-003",
+      "occurred_at": "2026-10-23T10:09:00Z",
+      "identity_id": "data-agent-03",
+      "resource_id": "customers.restricted",
+      "requested_action": "read_record",
+      "observed_outcome": "executed",
+      "declared_destination_region": "EU",
+      "synthetic_tool_cost_usd": 0.005,
+      "evidence_ids": [
+        "DE-003"
+      ]
+    },
+    {
+      "event_id": "DATA-004",
+      "occurred_at": "2026-10-23T10:25:00Z",
+      "identity_id": "data-agent-03",
+      "resource_id": "customers.restricted",
+      "requested_action": "read_record",
+      "observed_outcome": "blocked",
+      "declared_destination_region": "US",
+      "synthetic_tool_cost_usd": 0.002,
+      "evidence_ids": [
+        "DE-004"
+      ]
+    }
+  ],
+  "data_controls": {
+    "policy_id": "DATA-003",
+    "resource_classifications": {
+      "accounts.summary": "internal",
+      "customers.restricted": "restricted_pii"
+    },
+    "sensitive_classes": [
+      "restricted_pii"
+    ],
+    "sensitive_actions": [
+      "bulk_export",
+      "export_records"
+    ],
+    "approved_processing_regions": [
+      "US"
+    ]
+  },
+  "routing_policy": {
+    "policy_id": "ROUTE-DATA-003",
+    "data_classification": "restricted_pii_synthetic",
+    "approved_processing_regions": [
+      "US"
+    ]
+  },
+  "annual_loss_model": {
+    "annual_event_frequency": 1.1,
+    "loss_min_usd": 150000,
+    "loss_mode_usd": 450000,
+    "loss_max_usd": 1900000,
+    "simulations": 2500,
+    "seed": 303,
+    "basis": "fictional conditional scenario only"
+  }
+}

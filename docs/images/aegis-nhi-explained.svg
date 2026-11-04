@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560" role="img" aria-labelledby="t d">
+<title id="t">AEGIS-NHI explained: Protection for Non-Human Identities</title><desc id="d">AEGIS means protective shield. NHI means non-human identity, such as AI agents, service accounts, APIs, and automated workloads.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10283d"/><stop offset="1" stop-color="#08121f"/></linearGradient><linearGradient id="a"><stop stop-color="#67e5f0"/><stop offset="1" stop-color="#42c8aa"/></linearGradient></defs>
+<rect width="1400" height="560" rx="25" fill="url(#bg)"/>
+<circle cx="1320" cy="30" r="210" fill="#163c50" opacity=".35"/>
+<rect x="45" y="39" width="8" height="76" rx="4" fill="url(#a)"/>
+<text x="83" y="68" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="4" fill="#70e3e2">AEGIS-NHI  /  PROJECT IDENTITY</text>
+<text x="83" y="110" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="800" fill="#f0f6ff">A protective shield for non-human identities.</text>
+<rect x="45" y="147" width="1310" height="143" rx="18" fill="#172d40" stroke="#285b70" stroke-width="2"/>
+<path d="M97 181 L148 199 V244 Q146 270 122 279 Q98 267 97 243 Z" fill="#124453" stroke="#6ae2dc" stroke-width="4"/><path d="M109 232 L121 242 L143 212" fill="none" stroke="#6eeedb" stroke-width="7" stroke-linecap="round"/>
+<text x="208" y="205" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="800" fill="#f4f9ff">AEGIS</text>
+<text x="331" y="205" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" fill="#68e1d6">— The Protective Shield</text>
+<text x="208" y="248" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#cad9e8">Guardian layer for critical systems, trust boundaries, financial</text>
+<text x="208" y="275" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#cad9e8">consequences, and high-stakes decisions.</text>
+<rect x="45" y="307" width="1310" height="145" rx="18" fill="#172d40" stroke="#285b70" stroke-width="2"/>
+<g fill="none" stroke="#6ae2dc" stroke-width="4.8" stroke-linecap="round"><path d="M89 407 V376 Q89 343 121 340 Q154 340 154 377 V410"/><path d="M101 415 V376 Q102 356 121 355 Q140 355 140 378 V424"/><path d="M114 429 V380 Q115 372 122 372 Q129 372 129 381 V438"/></g>
+<text x="208" y="368" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="800" fill="#f4f9ff">NHI</text>
+<text x="287" y="368" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" fill="#68e1d6">— Non-Human Identity</text>
+<text x="208" y="410" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#cad9e8">AI agents, service accounts, APIs, and automated workflows.</text>
+<text x="208" y="437" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#cad9e8">Govern what software may do, not only what it can access.</text>
+<text x="700" y="513" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700" letter-spacing="1.8" fill="#81e8db">CAPABILITY IS NOT AUTHORITY   ·   EVIDENCE BEFORE ACTION   ·   HUMANS RETAIN CONTROL</text>
+</svg>

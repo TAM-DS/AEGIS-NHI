@@ -13,6 +13,8 @@ from typing import Any, Callable, TypeVar
 
 from .authorization import evaluate_events, parse_timestamp
 from .perimeter import reconcile_synthetic_ledger, replay_sovereign_routing
+from .investigations import analyze_specialized_case
+from .narration import narrate_evidence
 from .risk import quantify_annual_loss
 
 T = TypeVar("T")
@@ -23,6 +25,7 @@ _ALLOWED_TOOLS = {
     "sovereign_routing",
     "loss_quantification",
     "executive_brief",
+    "scenario_detection",
 }
 
 
@@ -171,6 +174,14 @@ def run_case(
             hypothetical_control_effectiveness=hypothetical_control_effectiveness,
         ),
     )
+    specialized = (
+        ledger.invoke(
+            "Risk Actuary", "scenario_detection",
+            lambda: analyze_specialized_case(case, decisions),
+        )
+        if case["scenario_type"] in {"sensitive_data_exposure", "shadow_ai"}
+        else None
+    )
     brief = ledger.invoke(
         "Executive Reporter",
         "executive_brief",
@@ -189,6 +200,7 @@ def run_case(
         "financial_risk": loss,
         "executive_brief": brief,
         "evidence": case["evidence"],
+        "scenario_findings": specialized,
         "agent_roles": ["FinOps Auditor", "Risk Actuary", "Executive Reporter"],
         "tool_trace": ledger.calls,
         "tool_budget": ledger.max_calls,
@@ -196,10 +208,11 @@ def run_case(
             "case_sha256": hashlib.sha256(
                 json.dumps(case, sort_keys=True).encode("utf-8")
             ).hexdigest(),
-            "engine_version": "0.1.0",
+            "engine_version": "0.5.0",
             "model": "seeded-poisson-triangular-v1",
         },
     }
+    report["evidence_narration"] = narrate_evidence(report)
     report["report_id"] = hashlib.sha256(
         json.dumps(report, sort_keys=True).encode("utf-8")
     ).hexdigest()[:24]
