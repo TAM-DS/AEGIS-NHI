@@ -114,7 +114,7 @@ AEGIS-NHI was approached as an end-to-end enterprise product, not just a technic
 
 This started as a more limited idea and grew far beyond the original plan. Over roughly six weeks the design shifted repeatedly as real-world signals appeared in the press—the same headlines that inspired the opening story. Building it required learning new skills in real time: deterministic multi-role agent workflows, evidence-locked narration, cyber-risk quantification patterns, Streamlit executive dashboards, and the discipline of keeping every claim grounded in versioned fixtures and tests.
 
-Tools that accelerated the work included GitHub Copilot, Grok, and Codex (used for the visual identity of The Beast and the presentation composites). The result is a complete reference system that tries to demonstrate product thinking and rapid learning as much as engineering.
+Tools that accelerated the work included GPT-6 Sol, GitHub Copilot, Grok-4.6, and Codex-6 Astra (used for the visual identity of The Beast and the presentation composites). The result is a complete reference system that tries to demonstrate product thinking and rapid learning as much as engineering.
 
 ## Two analytical engines. Three governed roles. Four investigations.
 
