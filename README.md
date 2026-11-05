@@ -44,6 +44,17 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 All events, banks, non-human identities, costs and modeled losses are **synthetic**. Agent roles are deterministic functions, not autonomous LLM agents; external model selection is optional and explicitly user-initiated.
 
+## Open source · Clone it. Challenge it. Make it your own.
+
+**AEGIS-NHI is available under the [MIT License](LICENSE).** Fork or clone the working reference, adapt its architecture to your use case, and share your ideas with the community. Commercial and private reuse are permitted under the license terms; preserve the license and copyright notice. Contributions and public disclosure of modifications are encouraged, **not required** by MIT.
+
+- **Clone and run:** `git clone https://github.com/TAM-DS/aegis-nhi.git` · `uv sync --extra dev --extra dashboard` · `uv run streamlit run streamlit_app.py`
+- **Make it yours:** extend synthetic scenarios, improve evidence presentation, refine risk assumptions, or propose additional reviewed controls.
+- **Share what you learned:** [Open an issue](https://github.com/TAM-DS/aegis-nhi/issues/new) with your use case, changes, test evidence and lessons, or submit a pull request.
+- **Keep the trust boundary:** use synthetic data only; evaluate security, privacy, governance and legal requirements before considering any organizational deployment.
+
+[Read the contribution guide](CONTRIBUTING.md) · [Explore the source](https://github.com/TAM-DS/aegis-nhi) · [Submit feedback](https://github.com/TAM-DS/aegis-nhi/issues)
+
 ## The Beast in action · v0.5 executive showcase
 
 [![AEGIS-NHI v0.5 Scenario Lab showing restricted-data exposure and a named-human recommendation review](docs/images/aegis-nhi-scenario-lab-v05.png)](docs/images/aegis-nhi-scenario-lab-v05.png)
