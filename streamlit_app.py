@@ -18,6 +18,7 @@ from aegis_nhi.briefing import interpret_control_case
 from aegis_nhi.review import add_review, get_reviews
 from aegis_nhi.ui_forensics import render_forensics
 from aegis_nhi.ui_scenarios import render_scenario_lab
+from aegis_nhi.ui_connected import render_connected
 from aegis_nhi.risk import quantify_annual_loss
 from aegis_nhi.workflow import load_case, run_case
 from pathlib import Path
@@ -374,7 +375,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-overview, identity, economics, forensics, cyber, evidence, lab = st.tabs(
+overview, identity, economics, forensics, cyber, evidence, lab, connected = st.tabs(
     [
         "🏛️ Executive Authority",
         "🔐 Autonomous Perimeter",
@@ -383,6 +384,7 @@ overview, identity, economics, forensics, cyber, evidence, lab = st.tabs(
         "📊 Capital at Risk",
         "📁 Audit & Decisions",
         "🧪 Scenario Lab",
+        "🔎 Connected Investigation",
     ]
 )
 
@@ -811,6 +813,9 @@ with evidence:
 
 with lab:
     render_scenario_lab(ROOT, REVIEWS)
+
+with connected:
+    render_connected(ROOT)
 
 st.divider()
 st.caption(
