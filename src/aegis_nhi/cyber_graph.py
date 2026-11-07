@@ -130,12 +130,38 @@ def build_case_graph(case: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+
+def verify_case_graph(case: dict[str, Any], graph: Any) -> None:
+    """Require an export to match a fresh projection of a trusted local source.
+
+    A self-consistent hash alone is not proof of source integrity. The caller
+    must select the trusted case independently of the export being verified.
+    This comparison is not a digital signature or permission to act.
+    """
+    expected = build_case_graph(case)
+    try:
+        supplied = json.dumps(graph, sort_keys=True, allow_nan=False)
+    except (TypeError, ValueError):
+        raise ValueError("Graph export is not valid JSON data") from None
+    if supplied != json.dumps(expected, sort_keys=True, allow_nan=False):
+        raise ValueError("Graph export does not match the selected source case")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="AEGIS-NHI synthetic cyber graph export")
     parser.add_argument("--scenario", default="data/scenarios/sensitive_data_exposure.json")
     parser.add_argument("--output", help="Optional JSON export path")
+    parser.add_argument("--verify", help="Verify a JSON export against the selected source scenario")
     options = parser.parse_args()
-    graph = build_case_graph(load_case(options.scenario))
+    if options.verify and options.output:
+        parser.error("--verify and --output cannot be combined")
+    case = load_case(options.scenario)
+    if options.verify:
+        exported = json.loads(Path(options.verify).read_text(encoding="utf-8"))
+        verify_case_graph(case, exported)
+        print("Verified graph matches selected synthetic source; no action authorized.")
+        return
+    graph = build_case_graph(case)
     output = json.dumps(graph, indent=2, sort_keys=True) + "\n"
     if options.output:
         target = Path(options.output)
