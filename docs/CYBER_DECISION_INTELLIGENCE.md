@@ -32,3 +32,23 @@ The exported artifact is a JSON *reference graph*, not an interactive product UI
 5. Create a consulting discovery, architecture, build-versus-buy and client-readout package with clearly modeled business impact.
 
 **Human authority boundary:** This graph cannot approve a recommendation, grant permissions, isolate a host, move funds, deploy agents, or change any connected system.
+
+## Verify a saved graph against its source
+
+Exported hashes are reproducibility aids, not signatures. A changed export can
+be given a new, self-consistent hash. The verifier therefore rebuilds the entire
+graph from an independently selected source case and compares the full JSON
+projection, including evidence relationships, counts and authority status.
+
+```bash
+uv run python -m aegis_nhi.cyber_graph --scenario data/scenarios/shadow_ai.json --output artifacts/shadow_graph.json
+uv run python -m aegis_nhi.cyber_graph --scenario data/scenarios/shadow_ai.json --verify artifacts/shadow_graph.json
+```
+
+A successful verification means only that the export matches that synthetic
+source and this implementation. It does not establish that the source is true,
+signed, independently preserved, or authorized for action. A mismatch fails
+with a nonzero exit status. Select the source independently; replacing both
+the source and export is outside this integrity check.
+
+[Client discovery and proof-of-value engagement](CLIENT_ENGAGEMENT.md)
