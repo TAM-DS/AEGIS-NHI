@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "records": [
+    {
+      "source_id": "fictional-iam",
+      "record_id": "event-001",
+      "institution_id": "fictional-bank",
+      "case_id": "case-001",
+      "identity_id": "local-agent-001",
+      "resource_id": "local-ledger",
+      "action": "read",
+      "outcome": "executed",
+      "evidence": [
+        {
+          "evidence_id": "evidence-001",
+          "sha256": "1b2bc8c98e9b5072aaa20f3e874d8e02b949be2b8534071bc8de37b40681483f"
+        }
+      ]
+    },
+    {
+      "source_id": "fictional-audit",
+      "record_id": "event-001",
+      "institution_id": "fictional-bank",
+      "case_id": "case-001",
+      "identity_id": "local-agent-001",
+      "resource_id": "local-ledger",
+      "action": "read",
+      "outcome": "executed",
+      "evidence": [
+        {
+          "evidence_id": "evidence-001",
+          "sha256": "bc6d9bbfd09663c287a753fca781442e741181a2e1fc3e23dbbdf7251279b4b4"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "left": [
+        "fictional-iam",
+        "event-001"
+      ],
+      "right": [
+        "fictional-audit",
+        "event-001"
+      ],
+      "relation": "SAME_REPORTED_EVENT",
+      "basis_evidence": [
+        [
+          "fictional-iam",
+          "event-001",
+          "evidence-001"
+        ],
+        [
+          "fictional-audit",
+          "event-001",
+          "evidence-001"
+        ]
+      ]
+    }
+  ]
+}

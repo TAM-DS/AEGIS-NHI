@@ -25,7 +25,7 @@ The exported artifact is a JSON *reference graph*, not an interactive product UI
 
 ## Next acceptance gates
 
-1. Define an explicit and testable **cross-source ingestion contract** before incorporating AEGIS Analyst, SENTINEL, or AEGIS Evidence fixtures.
+1. **Completed offline:** [cross-source contract v1](CROSS_SOURCE_CONTRACT.md) validates fictional normalized records and explicit evidence-backed links. Real repository adapters and case-graph integration remain pending.
 2. Require verified case/source provenance and explicit join keys. Never equate IDs across fictional institutions or silently correlate events by timestamps alone.
 3. Show identity → event → asset → evidence investigations in an analyst-facing view without adding autonomous remediation.
 4. Add acceptance tests for duplicate/conflicting identifiers, missing/contradictory evidence and cross-source contamination.
