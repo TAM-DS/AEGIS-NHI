@@ -89,7 +89,7 @@ def build_case_graph(case: dict[str, Any]) -> dict[str, Any]:
             link(event_key, tool_key, "DECLARED_TOOL")
 
     if specialized:
-        for finding in specialized["flagged_events"]:
+        for finding in specialized["findings"]:
             event_key = f"{case_id}/event/{finding['event_id']}"
             finding_key = node(
                 "finding", finding["finding_id"],
@@ -123,7 +123,7 @@ def build_case_graph(case: dict[str, Any]) -> dict[str, Any]:
             "edges": len(ordered_edges),
             "recorded_executions": sum(x["observed_outcome"] == "executed" for x in case["events"]),
             "recorded_blocks": sum(x["observed_outcome"] == "blocked" for x in case["events"]),
-            "policy_findings": len(specialized["flagged_events"]) if specialized else 0,
+            "policy_findings": len(specialized["findings"]) if specialized else 0,
         },
     }
     result["graph_sha256"] = _hash(result)
