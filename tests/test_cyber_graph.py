@@ -3,7 +3,7 @@ from copy import deepcopy
 from pathlib import Path
 import pytest
 
-from aegis_nhi.cyber_graph import build_case_graph
+from aegis_nhi.cyber_graph import build_case_graph, verify_case_graph
 from aegis_nhi.workflow import load_case
 
 ROOT = Path(__file__).resolve().parents[1] / "data" / "scenarios"
@@ -62,3 +62,50 @@ def test_duplicate_event_ids_fail_closed():
     case["events"][1]["event_id"] = case["events"][0]["event_id"]
     with pytest.raises(ValueError, match="Duplicate event"):
         build_case_graph(case)
+
+
+@pytest.mark.parametrize("filename", [
+    "unauthorized_ai_agent.json", "sensitive_data_exposure.json", "shadow_ai.json",
+    "runaway_agent.json",
+])
+def test_export_verifies_against_selected_source(filename):
+    case = load_case(ROOT / filename)
+    verify_case_graph(case, build_case_graph(case))
+
+
+@pytest.mark.parametrize("mutation", ["edge", "source", "authority", "count", "extra"])
+def test_tampered_export_rejected_even_if_hash_recomputed(mutation):
+    import hashlib
+    import json
+    case = load_case(ROOT / "shadow_ai.json")
+    graph = build_case_graph(case)
+    if mutation == "edge":
+        graph["edges"].pop()
+    elif mutation == "source":
+        graph["source_case_sha256"] = "0" * 64
+    elif mutation == "authority":
+        graph["approval_status"] = "AUTHORIZED"
+    elif mutation == "count":
+        graph["counts"]["recorded_blocks"] = True
+    else:
+        graph["unverified_claim"] = "real incident"
+    graph.pop("graph_sha256")
+    graph["graph_sha256"] = hashlib.sha256(
+        json.dumps(graph, sort_keys=True).encode("utf-8")
+    ).hexdigest()
+    with pytest.raises(ValueError, match="does not match"):
+        verify_case_graph(case, graph)
+
+
+def test_export_from_other_case_rejected():
+    case = load_case(ROOT / "shadow_ai.json")
+    other = load_case(ROOT / "sensitive_data_exposure.json")
+    with pytest.raises(ValueError, match="does not match"):
+        verify_case_graph(case, build_case_graph(other))
+
+
+@pytest.mark.parametrize("bad", [None, [], {"counts": float("nan")}])
+def test_invalid_graph_export_rejected(bad):
+    case = load_case(ROOT / "shadow_ai.json")
+    with pytest.raises(ValueError):
+        verify_case_graph(case, bad)
