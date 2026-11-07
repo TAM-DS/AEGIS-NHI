@@ -66,7 +66,6 @@ def test_duplicate_event_ids_fail_closed():
 
 @pytest.mark.parametrize("filename", [
     "unauthorized_ai_agent.json", "sensitive_data_exposure.json", "shadow_ai.json",
-    "runaway_agent.json",
 ])
 def test_export_verifies_against_selected_source(filename):
     case = load_case(ROOT / filename)
@@ -109,3 +108,38 @@ def test_invalid_graph_export_rejected(bad):
     case = load_case(ROOT / "shadow_ai.json")
     with pytest.raises(ValueError):
         verify_case_graph(case, bad)
+
+
+def test_forensics_fixture_requires_explicit_adapter():
+    import json
+    case = json.loads((ROOT / "runaway_agent.json").read_text())
+    with pytest.raises(ValueError, match="required evidence"):
+        build_case_graph(case)
+
+
+def test_cli_verifies_export_and_rejects_modified_export(tmp_path):
+    import json
+    import subprocess
+    import sys
+    target = tmp_path / "graph.json"
+    command = [
+        sys.executable, "-m", "aegis_nhi.cyber_graph",
+        "--scenario", str(ROOT / "shadow_ai.json"),
+    ]
+    exported = subprocess.run(
+        command + ["--output", str(target)], capture_output=True, text=True
+    )
+    assert exported.returncode == 0, exported.stderr
+    verified = subprocess.run(
+        command + ["--verify", str(target)], capture_output=True, text=True
+    )
+    assert verified.returncode == 0, verified.stderr
+    assert "no action authorized" in verified.stdout
+    graph = json.loads(target.read_text())
+    graph["edges"].pop()
+    target.write_text(json.dumps(graph))
+    rejected = subprocess.run(
+        command + ["--verify", str(target)], capture_output=True, text=True
+    )
+    assert rejected.returncode != 0
+    assert "does not match" in rejected.stderr
