@@ -102,6 +102,12 @@ The original captures below remain available as direct screenshots of the functi
 
 ---
 
+## Cyber Decision Intelligence · Early investigation graph
+
+AEGIS-NHI now includes a **tested, synthetic, single-case evidence graph** linking non-human identities, actions, resources, scoped grants, source evidence and specialized risk findings. This is the first step toward a connected cyber-investigation proof of value—not an actual Palantir integration, deployed threat graph, or autonomous incident response service. See [graph architecture and reproducible demo](docs/CYBER_DECISION_INTELLIGENCE.md).
+
+Run `python -m aegis_nhi.cyber_graph --scenario data/scenarios/sensitive_data_exposure.json` to inspect a deterministic JSON graph. The original v0.5 dashboard and investigations remain unchanged.
+
 ## Why
 
 Bank risk leadership must distinguish what an agent can technically do from what it is authorized to do, evaluate credible downside assumptions, and make decisions with traceable evidence.
