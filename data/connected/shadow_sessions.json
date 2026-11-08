@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "source_id": "fictional-session-host",
+  "case_id": "BANK-SHADOW-004",
+  "institution": "Fictional bank",
+  "case_sha256": "8d937b30e629992d263816eec8d3296f15191a3b554a43bff89b33dfb721f783",
+  "sessions": [
+    {
+      "session_id": "session-1",
+      "identity_id": "approved-agent-07",
+      "started_at": "2026-10-25T09:00:00Z",
+      "ended_at": "2026-10-25T09:30:00Z",
+      "event_ids": [
+        "SHADOW-001",
+        "SHADOW-003"
+      ]
+    },
+    {
+      "session_id": "session-2",
+      "identity_id": "unregistered-assistant-09",
+      "started_at": "2026-10-25T09:00:00Z",
+      "ended_at": "2026-10-25T09:30:00Z",
+      "event_ids": [
+        "SHADOW-002",
+        "SHADOW-004"
+      ]
+    }
+  ],
+  "hosts": [
+    {
+      "observation_id": "host-observation-1",
+      "host_id": "fictional-host-1",
+      "session_id": "session-1",
+      "event_id": "SHADOW-003",
+      "observed_at": "2026-10-25T09:15:00Z",
+      "process_name": "fictional-agent-worker"
+    },
+    {
+      "observation_id": "host-observation-2",
+      "host_id": "fictional-host-2",
+      "session_id": "session-2",
+      "event_id": "SHADOW-004",
+      "observed_at": "2026-10-25T09:15:00Z",
+      "process_name": "fictional-agent-worker"
+    }
+  ]
+}

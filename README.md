@@ -32,6 +32,8 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 # AEGIS-NHI · THE BEAST 🛡️
 
+**New: [Connected Investigation](docs/CONNECTED_INVESTIGATION.md)** — trace the existing shadow-AI case through explicitly declared fictional sessions and host observations in the dashboard. Includes source-bound validation, policy findings, original evidence and separately labeled financial context. Offline reference only; no live feeds or external AEGIS adapters.
+
 <img src="docs/images/aegis-beast-guardian.png" alt="The Beast: armored black cat with neon blue eyes and a mace-shaped tail" width="110" align="right" />
 
 **Meet The Beast:** a little black-cat guardian of the autonomous perimeter, with crusader armor, neon-blue eyes, white claws and a mace-shaped tail. He belongs in the app sidebar because a memorable product identity matters alongside tested engineering.
