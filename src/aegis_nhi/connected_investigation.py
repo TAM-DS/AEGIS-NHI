@@ -14,6 +14,82 @@ def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()
 
 
+def _decision_brief(case, telemetry, report, event_sessions):
+    """Derive review triggers only from the already validated synthetic replay.
+
+    A missing relationship is an evidence gap, never a reason to erase an
+    event-level trigger. Registry findings do not change grant authorization.
+    """
+    findings = report["scenario_findings"]["findings"]
+    rows = []
+    for decision in sorted(report["authorization_decisions"], key=lambda d: d["event_id"]):
+        eid = decision["event_id"]
+        event_findings = [f for f in findings if f["event_id"] == eid]
+        rules = sorted({f["rule"] for f in event_findings})
+        reasons = list(rules)
+        if not decision["authorized"]:
+            reasons.append(decision["reason"])
+        executed = decision["observed_outcome"] == "executed"
+        if reasons and executed:
+            disposition = "ESCALATE_FOR_HUMAN_INVESTIGATION"
+        elif reasons:
+            disposition = "REVIEW_BLOCKED_ATTEMPT"
+        else:
+            disposition = "NO_TRIGGER_UNDER_EVALUATED_RULES"
+        host_refs = sorted(h["observation_id"] for h in telemetry["hosts"]
+                           if h["event_id"] == eid)
+        gaps = []
+        if eid not in event_sessions:
+            gaps.append("NO_DECLARED_SESSION")
+        if not host_refs:
+            gaps.append("NO_EXPLICIT_HOST_OBSERVATION")
+        rows.append({
+            "event_id": eid,
+            "disposition": disposition,
+            "reason_codes": sorted(reasons),
+            "grant_authorized": decision["authorized"],
+            "authorization_reason": decision["reason"],
+            "recorded_outcome": decision["observed_outcome"],
+            "authorization_control_failure": decision["control_failure"],
+            "finding_ids": sorted(f["finding_id"] for f in event_findings),
+            "evidence_ids": sorted(decision["evidence_ids"]),
+            "session_id": event_sessions.get(eid),
+            "host_observation_ids": host_refs,
+            "evidence_gaps": gaps,
+        })
+    escalated = [r["event_id"] for r in rows
+                 if r["disposition"] == "ESCALATE_FOR_HUMAN_INVESTIGATION"]
+    blocked = [r["event_id"] for r in rows if r["disposition"] == "REVIEW_BLOCKED_ATTEMPT"]
+    return {
+        "rule_version": "connected-review-v1",
+        "decision_question": "Which recorded requests warrant human investigation?",
+        "basis": "synthetic_retrospective_replay",
+        "recommendation": (
+            "ESCALATE_FOR_HUMAN_INVESTIGATION" if escalated else
+            "REVIEW_BLOCKED_ATTEMPTS" if blocked else "NO_TRIGGER_UNDER_EVALUATED_RULES"
+        ),
+        "escalation_event_ids": escalated,
+        "blocked_attempt_event_ids": blocked,
+        "events": rows,
+        "source_case_sha256": digest(case),
+        "source_telemetry_sha256": digest(telemetry),
+        "human_review_status": "PENDING_HUMAN_REVIEW",
+        "operational_authority": "NOT_AUTHORIZED_FOR_ACTION",
+        "recommended_review_roles": ["Security analyst", "AI tool inventory owner"],
+        "next_checks": [
+            "Validate source authenticity and completeness before operational decisions.",
+            "Check the tool inventory and grant scope with the accountable owners.",
+            "Resolve missing session and host references without inferring relationships.",
+            "Obtain separate operational authorization before any system change.",
+        ],
+        "not_established": [
+            "Compromise, malicious intent, data exfiltration or actual financial loss.",
+            "Causality between a declared host process and a recorded request.",
+            "Safety of events with no trigger under these limited evaluated rules.",
+        ],
+    }
+
+
 def adapt_case_events(case):
     """Normalize existing event evidence; do not invent cross-source links."""
     build_case_graph(case)
@@ -138,5 +214,6 @@ def build_connected_investigation(case, telemetry):
         "hypothetical_annual_exposure": report["financial_risk"],
         "limitations": "Fictional declared links, not causal proof or authenticated telemetry. No external adapters or remediation. Fixture costs and hypothetical annual exposure are separate quantities.",
     }
+    result["decision_brief"] = _decision_brief(case, telemetry, report, event_sessions)
     result["report_sha256"] = digest(result)
     return result
