@@ -23,6 +23,29 @@ def render_connected(root):
     b.metric("Host observations", report["host_observation_count"])
     c.metric("Events without a session", len(report["unassigned_event_ids"]))
     st.info("Connections are explicitly declared in fictional fixtures. Shared timing or labels do not establish causality. No live security feeds are connected.")
+    brief = report["decision_brief"]
+    st.markdown("#### Decision brief · human investigation")
+    st.write("**Recommendation:** " + brief["recommendation"].replace("_", " "))
+    st.caption("Rule version: " + brief["rule_version"] +
+               ". Review priorities are deterministic fixture results, not incident confirmation.")
+    execution, blocked = st.columns(2)
+    execution.metric("Executed events requiring investigation", len(brief["escalation_event_ids"]))
+    blocked.metric("Blocked attempts requiring review", len(brief["blocked_attempt_event_ids"]))
+    st.dataframe([
+        {"Event": row["event_id"], "Review disposition": row["disposition"],
+         "Grant authorized": row["grant_authorized"], "Recorded outcome": row["recorded_outcome"],
+         "Reasons": ", ".join(row["reason_codes"]), "Evidence": ", ".join(row["evidence_ids"]),
+         "Evidence gaps": ", ".join(row["evidence_gaps"])}
+        for row in brief["events"]
+    ], hide_index=True, width="stretch")
+    with st.expander("What the reviewer must check and what remains unknown"):
+        st.write("Suggested reviewers: " + ", ".join(brief["recommended_review_roles"]))
+        for check in brief["next_checks"]:
+            st.write("• " + check)
+        st.write("**Not established by this evidence:**")
+        for unknown in brief["not_established"]:
+            st.write("• " + unknown)
+    st.caption("Human review is pending. This recommendation grants no operational authority.")
     event_id = st.selectbox("Trace an event", [e["event_id"] for e in case["events"]], key="connected_event")
     focus = case["case_id"] + "/event/" + event_id
     selected = {focus}
