@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import unittest
 
-from aegis_nhi.connected_investigation import build_connected_investigation, adapt_case_events
+from aegis_nhi.connected_investigation import build_connected_investigation, adapt_case_events, digest
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -82,6 +82,80 @@ class ConnectedTests(unittest.TestCase):
         self.telemetry["production_authorized"] = True
         with self.assertRaises(ValueError):
             build_connected_investigation(self.case, self.telemetry)
+
+    def test_brief_separates_grant_authority_inventory_and_outcome(self):
+        brief = build_connected_investigation(self.case, self.telemetry)["decision_brief"]
+        self.assertEqual(brief["escalation_event_ids"], ["SHADOW-003"])
+        self.assertEqual(brief["blocked_attempt_event_ids"], ["SHADOW-002", "SHADOW-004"])
+        rows = {r["event_id"]: r for r in brief["events"]}
+        self.assertTrue(rows["SHADOW-003"]["grant_authorized"])
+        self.assertFalse(rows["SHADOW-003"]["authorization_control_failure"])
+        self.assertEqual(rows["SHADOW-003"]["reason_codes"], ["UNREGISTERED_AI_TOOL"])
+        self.assertEqual(rows["SHADOW-003"]["evidence_ids"], ["SA-003"])
+        self.assertEqual(rows["SHADOW-003"]["host_observation_ids"], ["host-observation-1"])
+        self.assertEqual(rows["SHADOW-001"]["host_observation_ids"], [])
+        self.assertEqual(rows["SHADOW-001"]["disposition"], "NO_TRIGGER_UNDER_EVALUATED_RULES")
+        # Two registry findings plus a grant denial still represent one blocked event.
+        self.assertEqual(len(rows["SHADOW-002"]["reason_codes"]), 3)
+        self.assertEqual(brief["human_review_status"], "PENDING_HUMAN_REVIEW")
+        self.assertEqual(brief["operational_authority"], "NOT_AUTHORIZED_FOR_ACTION")
+
+    def test_execution_without_grant_escalates_independently_of_registry(self):
+        self.case["ai_registry"]["approved_identity_ids"].append("unregistered-assistant-09")
+        self.case["ai_registry"]["registered_tool_ids"].append("unapproved.vendor-llm")
+        self.case["events"][1]["observed_outcome"] = "executed"
+        self.telemetry["case_sha256"] = digest(self.case)
+        brief = build_connected_investigation(self.case, self.telemetry)["decision_brief"]
+        self.assertEqual(brief["escalation_event_ids"], ["SHADOW-002"])
+        row = brief["events"][1]
+        self.assertTrue(row["authorization_control_failure"])
+        self.assertEqual(row["finding_ids"], [])
+        self.assertEqual(row["reason_codes"], ["DENY_NO_IDENTITY_GRANT"])
+
+    def test_blocked_findings_do_not_become_recorded_execution(self):
+        self.case["events"][2]["observed_outcome"] = "blocked"
+        self.telemetry["case_sha256"] = digest(self.case)
+        brief = build_connected_investigation(self.case, self.telemetry)["decision_brief"]
+        self.assertEqual(brief["escalation_event_ids"], [])
+        self.assertEqual(brief["recommendation"], "REVIEW_BLOCKED_ATTEMPTS")
+        self.assertEqual(len(brief["blocked_attempt_event_ids"]), 3)
+
+    def test_missing_relationships_do_not_erase_escalation_or_invent_host_links(self):
+        self.telemetry["sessions"][0]["event_ids"].remove("SHADOW-003")
+        self.telemetry["hosts"].pop(0)
+        brief = build_connected_investigation(self.case, self.telemetry)["decision_brief"]
+        self.assertEqual(brief["escalation_event_ids"], ["SHADOW-003"])
+        row = brief["events"][2]
+        self.assertIsNone(row["session_id"])
+        self.assertEqual(row["host_observation_ids"], [])
+        self.assertEqual(row["evidence_gaps"], ["NO_DECLARED_SESSION", "NO_EXPLICIT_HOST_OBSERVATION"])
+
+    def test_no_trigger_is_not_an_approval_or_safety_claim(self):
+        # All requests get a matching grant and registered inventory in this variant.
+        self.case["ai_registry"]["approved_identity_ids"].append("unregistered-assistant-09")
+        self.case["ai_registry"]["registered_tool_ids"].append("unapproved.vendor-llm")
+        for event in self.case["events"][1::2]:
+            grant = deepcopy(self.case["grants"][0])
+            grant.update(grant_id="GR-" + event["event_id"], identity_id=event["identity_id"],
+                         resource_id=event["resource_id"], allowed_actions=[event["requested_action"]])
+            self.case["grants"].append(grant)
+        self.telemetry["case_sha256"] = digest(self.case)
+        brief = build_connected_investigation(self.case, self.telemetry)["decision_brief"]
+        self.assertEqual(brief["recommendation"], "NO_TRIGGER_UNDER_EVALUATED_RULES")
+        self.assertEqual(brief["operational_authority"], "NOT_AUTHORIZED_FOR_ACTION")
+        self.assertTrue(any("Safety" in item for item in brief["not_established"]))
+
+    def test_brief_citations_and_rules_are_bound_into_report_hash(self):
+        before_case, before_telemetry = deepcopy(self.case), deepcopy(self.telemetry)
+        report = build_connected_investigation(self.case, self.telemetry)
+        self.assertEqual(self.case, before_case)
+        self.assertEqual(self.telemetry, before_telemetry)
+        self.assertEqual(report["decision_brief"]["source_case_sha256"], digest(self.case))
+        self.assertEqual(report["decision_brief"]["source_telemetry_sha256"], digest(self.telemetry))
+        expected = report.pop("report_sha256")
+        self.assertEqual(digest(report), expected)
+        report["decision_brief"]["rule_version"] = "changed-rule"
+        self.assertNotEqual(digest(report), expected)
 
 
 if __name__ == "__main__":
