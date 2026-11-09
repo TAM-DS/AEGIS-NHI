@@ -4,6 +4,22 @@
 
 ---
 
+## From evidence to a defensible decision
+
+> “I built a system that explains why to escalate, what evidence supports it, and what we still cannot conclude.”
+
+The **[Connected Investigation decision brief](docs/CONNECTED_INVESTIGATION.md#evidence-linked-decision-brief)** makes that principle visible in the working dashboard. In the synthetic shadow-AI case:
+
+- **What warrants investigation:** one executed request using an unregistered tool (SHADOW-003). Its scoped grant was valid; the tool-inventory finding is a separate concern.
+- **What was blocked:** two attempts requiring review (SHADOW-002 and SHADOW-004).
+- **What remains uncertain:** evidence gaps, source authenticity, and actual harm. The fixture does not establish compromise, exfiltration, or financial loss.
+
+Every recommendation links to evidence and preserves human authority. Missing session or host references remain explicit gaps. Review stays pending, and the system grants **no operational authority**.
+
+**Validation — November 9, 2026:** **135 tests and 46 subtests passed; lint passed.** See the [GitHub Actions validation run](https://github.com/TAM-DS/AEGIS-NHI/actions/runs/42645093976) and [merged implementation](https://github.com/TAM-DS/AEGIS-NHI/pull/7). These results validate the synthetic reference implementation, not production security effectiveness or business ROI.
+
+---
+
 ## From the headlines
 
 > **Fictional composite inspired by real reporting.** The bank, customer, account activity, password reset, external payee, six-figure transfer, and human intervention in this story are invented—not a reported incident. AEGIS-NHI uses synthetic cases and does not claim to have detected or prevented an actual bank transaction.
@@ -42,7 +58,7 @@ In the fictional bank's subsequent risk committee review, one question landed wi
 
 > Capability is not authority. Evidence before action. Humans retain control.
 
-**Status: v0.5 synthetic reference milestone.** Four distinct fictional investigations, deterministic governance, evidence-grounded narration, a seven-view Streamlit dashboard, human recommendation review and automated tests are implemented. This is not a deployed security system, live bank monitor, certified risk assessment, or a claim of actual prevented losses.
+**Status: v0.5 synthetic reference milestone.** Four distinct fictional investigations, deterministic governance, evidence-grounded narration, an eight-view Streamlit dashboard, human recommendation review and automated tests are implemented. This is not a deployed security system, live bank monitor, certified risk assessment, or a claim of actual prevented losses.
 
 All events, banks, non-human identities, costs and modeled losses are **synthetic**. Agent roles are deterministic functions, not autonomous LLM agents; external model selection is optional and explicitly user-initiated.
 
@@ -149,7 +165,7 @@ Tools that accelerated the work included GPT-6 Sol, GitHub Copilot, Grok-4.6, an
 
 ## Quick start · Offline by default
 
-Clone the default branch and run the seven-view executive app:
+Clone the default branch and run the eight-view executive app:
 
 ```bash
 git clone https://github.com/TAM-DS/aegis-nhi.git
@@ -192,7 +208,7 @@ The entire baseline needs **no API key, live bank, cloud account or paid service
 
 **An attempted action is not an executed action.** An executed *synthetic* event is not an actual breach. Hypothetical expected loss is not money lost or saved.
 
-## Seven working executive views
+## Eight working executive views
 
 1. **Executive Authority:** concise fictional incident briefing, timeline and annual risk context.
 2. **Autonomous Perimeter:** identity-to-action Sankey, scoped grants, policy replay, declared data destination metadata.
@@ -202,7 +218,9 @@ The entire baseline needs **no API key, live bank, cloud account or paid service
 6. **Audit & Decisions:** named human reviews attached to exact source and economic scenarios, exportable audit evidence.
 7. **Scenario Lab:** interactive data-exposure and shadow-AI cases, evidence-grounded findings, executive narration, case-specific human review.
 
-The published six-view screenshot gallery is actual v0.4 app output. The seventh tab is implemented and covered by an automated Streamlit render test.
+8. **Connected Investigation:** explicit session and host relationships, evidence-linked escalation briefs, missing-evidence gaps and separately labeled financial context.
+
+The published six-view screenshot gallery is actual v0.4 app output. Scenario Lab and Connected Investigation are implemented and covered by automated Streamlit tests.
 
 ## Evidence-locked executive narration
 
