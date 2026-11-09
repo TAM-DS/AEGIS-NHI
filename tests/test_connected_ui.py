@@ -15,6 +15,11 @@ def test_connected_view_renders_and_traces_selected_event():
     assert next(item for item in app.selectbox if item.label == "Trace an event").value == "SHADOW-003"
     assert any(metric.label == "Fictional fixture charges" and metric.value == "$0.019" for metric in app.metric)
     assert any("No live security feeds" in item.value for item in app.info)
+    assert any(metric.label == "Executed events requiring investigation" and metric.value == "1"
+               for metric in app.metric)
+    assert any(metric.label == "Blocked attempts requiring review" and metric.value == "2"
+               for metric in app.metric)
+    assert any("grants no operational authority" in item.value for item in app.caption)
 
 
 def test_invalid_source_renders_error_without_partial_report():
@@ -30,3 +35,5 @@ with patch("aegis_nhi.ui_connected.build_connected_investigation", side_effect=V
     assert len(app.error) == 1
     assert not app.metric
     assert not app.selectbox
+    assert not app.dataframe
+    assert not any("Recommendation:" in item.value for item in app.markdown)
